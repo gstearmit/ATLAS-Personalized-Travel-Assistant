@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:domainObject name="SpecificTransportMean" xmlns:tns="http://das.fbk.eu/DomainObject"
+	xmlns:tns2="http://das.fbk.eu/DataType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://das.fbk.eu/DomainObject ../schema/DomainObject.xsd ">
+
+	<tns:domainKnowledge>
+		<tns:internalDomainProperty name="domainProperties/SpecificJourney" />
+	</tns:domainKnowledge>
+
+	<tns:state>
+		<tns:stateVariable name="Source" type="string">
+			<tns2:content type="anyType"></tns2:content>
+		</tns:stateVariable>
+		<tns:stateVariable name="Destination" type="string">
+			<tns2:content type="anyType"></tns2:content>
+		</tns:stateVariable>
+		<tns:stateVariable name="ResultList" type="string">
+			<tns2:content type="anyType"></tns2:content>
+		</tns:stateVariable>
+	</tns:state>
+
+	<tns:process name="processes/PROC_SpecificTransportMean" />
+	
+
+	<tns:fragment name="fragments/STM_findRoutes" />
+
+</tns:domainObject>

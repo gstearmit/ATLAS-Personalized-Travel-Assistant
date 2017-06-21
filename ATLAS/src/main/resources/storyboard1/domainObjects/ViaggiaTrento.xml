@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:domainObject name="ViaggiaTrento" xmlns:tns="http://das.fbk.eu/DomainObject"
+	xmlns:tns2="http://das.fbk.eu/DataType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://das.fbk.eu/DomainObject ../schema/DomainObject.xsd ">
+
+	<tns:domainKnowledge>
+		<tns:internalDomainProperty name="domainProperties/LocalPlanner" />
+	</tns:domainKnowledge>
+
+	<tns:state>
+		<tns:stateVariable name="From" type="string">
+			<tns2:content type="anyType"></tns2:content>
+		</tns:stateVariable>
+		<tns:stateVariable name="To" type="string">
+			<tns2:content type="anyType"></tns2:content>
+		</tns:stateVariable>
+		<tns:stateVariable name="Date" type="string">
+			<tns2:content type="anyType"></tns2:content>
+		</tns:stateVariable>
+		<tns:stateVariable name="DepartureTime" type="string">
+			<tns2:content type="anyType"></tns2:content>
+		</tns:stateVariable>
+		<tns:stateVariable name="TransportType" type="string">
+			<tns2:content type="anyType"></tns2:content>
+		</tns:stateVariable>
+		<tns:stateVariable name="RouteType" type="string">
+			<tns2:content type="anyType"></tns2:content>
+		</tns:stateVariable>
+		<tns:stateVariable name="PlannerOutput" type="string">
+			<tns2:content type="anyType"/>
+		</tns:stateVariable>
+	</tns:state>
+
+	<tns:process name="processes/PROC_ViaggiaTrento" />
+
+	<tns:fragment name="fragments/VT_findRoutes" />
+
+</tns:domainObject>

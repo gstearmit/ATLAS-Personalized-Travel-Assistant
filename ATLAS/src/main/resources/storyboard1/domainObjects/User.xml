@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tns:domainObject name="User" xmlns:tns="http://das.fbk.eu/DomainObject"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns2="http://das.fbk.eu/DataType"
+	xsi:schemaLocation="http://das.fbk.eu/DomainObject ../schema/DomainObject.xsd ">
+	<tns:domainKnowledge>
+		<tns:externalDomainProperty name="domainProperties/TravelAssistant" />
+		<tns:externalDomainProperty name="domainProperties/TestJourney" />
+		<tns:externalDomainProperty name="domainProperties/BusJourney" />
+		<tns:externalDomainProperty name="domainProperties/TrainJourney" />
+		<tns:externalDomainProperty name="domainProperties/BikeJourney" />
+	</tns:domainKnowledge>
+	<tns:process name="processes/PROC_User" />
+</tns:domainObject>
+

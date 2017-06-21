@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:process name="PROC_Rome2Rio" xmlns:tns="http://das.fbk.eu/Process"
+	xmlns:tns1="http://das.fbk.eu/Annotation" xmlns:tns2="http://das.fbk.eu/DataType"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://das.fbk.eu/Process ../../../schema/allow-ensembles/Process.xsd ">
+
+	<tns:receive name="R2R_PlanRequest">
+		<tns:precondition>
+			<tns1:point>
+				<tns1:domainProperty dp_name="GlobalPlanner">
+					<tns1:state>INITIAL</tns1:state>
+				</tns1:domainProperty>
+			</tns1:point>
+		</tns:precondition>
+		<tns:actionVariable name="From" type="string">
+			<tns2:content type="anyType"></tns2:content>
+		</tns:actionVariable>
+		<tns:actionVariable name="To" type="string">
+			<tns2:content type="anyType"></tns2:content>
+		</tns:actionVariable>
+	</tns:receive>
+
+	<tns:concrete name="R2R_ServiceCall">
+		<tns:effect>
+			<tns1:event dpName="GlobalPlanner" eventName="processRequest"></tns1:event>
+		</tns:effect>
+	</tns:concrete>
+
+	<tns:invoke name="R2R_PlanResponse">
+		<tns:precondition>
+			<tns1:point>
+				<tns1:domainProperty dp_name="GlobalPlanner">
+					<tns1:state>REQUEST_PROCESSED</tns1:state>
+				</tns1:domainProperty>
+			</tns1:point>
+		</tns:precondition>
+		<tns:effect>
+			<tns1:event dpName="GlobalPlanner" eventName="sendAlternatives"></tns1:event>
+		</tns:effect>
+<!-- 		<tns:actionVariable name="PlanList" type="string"> -->
+<!-- 			<tns2:content type="anyType"></tns2:content> -->
+<!-- 		</tns:actionVariable> -->
+		<tns:actionVariable name="PlannerOutput" type="string">
+			<tns2:content type="anyType"></tns2:content>
+		</tns:actionVariable>
+	</tns:invoke>
+</tns:process>

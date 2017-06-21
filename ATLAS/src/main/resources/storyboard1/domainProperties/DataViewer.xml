@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:domainProperty id="DataViewer" xmlns:tns="http://das.fbk.eu/Process" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://das.fbk.eu/Process ../../../schema/allow-ensembles/Process.xsd ">
+  
+  <tns:state isInitial="true">INITIAL</tns:state>
+  <tns:state>DATA_RECEIVED</tns:state>
+  <tns:state>VIEWER_PATTERN_DEFINED</tns:state>
+  
+  <tns:event>receiveData</tns:event>
+  <tns:event>sendPattern</tns:event>
+  <tns:event>goBackToInit</tns:event>
+ 
+  <tns:transition isControllable="true">
+    <tns:from>INITIAL</tns:from>
+    <tns:to>DATA_RECEIVED</tns:to>
+    <tns:event>receiveData</tns:event>
+  </tns:transition>
+  
+  <tns:transition isControllable="true">
+    <tns:from>DATA_RECEIVED</tns:from>
+    <tns:to>VIEWER_PATTERN_DEFINED</tns:to>
+    <tns:event>sendPattern</tns:event>
+  </tns:transition>
+  
+  <tns:transition isControllable="true">
+    <tns:from>VIEWER_PATTERN_DEFINED</tns:from>
+    <tns:to>INITIAL</tns:to>
+    <tns:event>goBackToInit</tns:event>
+  </tns:transition>
+
+</tns:domainProperty>
