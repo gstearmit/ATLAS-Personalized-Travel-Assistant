@@ -17,7 +17,7 @@ advanced techniques for dynamic service adaptation. To show our platform in acti
 we have implemented and evaluated a world-wide travel assistant supporting
 users for the whole travel duration.
 
-## Dependencies and how to build ATALS
+## Dependencies and how to build ATLAS
 
 ATLAS has been developed in Java, by using Eclipse as development IDE.
 To import and run ATLAS, you need to download Eclipse (we suggest Luna or Neon), install Maven 3.2.x and install Java JDK 1.8.x.
