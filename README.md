@@ -17,14 +17,16 @@ advanced techniques for dynamic service adaptation. To show our platform in acti
 we have implemented and evaluated a world-wide travel assistant supporting
 users for the whole travel duration.
 
+## ATLAS Overview
+
 ![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/DEMO_Overview.png)
 
 ## Dependencies and how to build ATLAS
 
 ATLAS has been developed in Java, by using Eclipse as development IDE.
 To import and run ATLAS, you need to download Eclipse (we suggest Luna or Neon), install Maven 3.2.x and install Java JDK 1.8.x.
-NB: To use the Telegram chat-bot (which is required to run the demonstrator) you need to have a Telegram account. Both the mobile application
-and the Desktop version of Telegram can be used.
+
+NB: To use the Telegram chat-bot (which is required to run the demonstrator) you need to have a Telegram account. Both the mobile application and the Desktop version of Telegram can be used.
 
 The project dependencies are inside the lib folder. If required, add them to the project Build Path.
 
