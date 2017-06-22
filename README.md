@@ -53,6 +53,30 @@ when Demonstrator is started, select File -> Open Scenario from the window menu 
 
 To run the demonstrator, which is sinchronized with the Telegram chat-bot please press STEP or PLAY on the demonstrator, and START on the chat-bot.
 
+## ATLAS demonstrator and Chat-bot execution Examples
+
+### Demonstrator Interface
+
+Domain Objects Model Tab
+
+![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/modelsTab.PNG)
+
+Domain Objects Processes Execution Tab
+
+![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/ExecutionTab.PNG)
+
+Travel Assistant Process: Execution of the Selected Planning Mode (Global in the example)
+
+![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/PlanningModeSelection.PNG)
+
+User Process: Execution of the dynamically selected mobility transport service
+
+![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/JourneyLegRefinement.PNG)
+
+### Telegram chat-bot Interface
+
+
+
 
 
 
