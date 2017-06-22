@@ -75,6 +75,22 @@ User Process: Execution of the dynamically selected mobility transport service
 
 ### Telegram chat-bot Interface
 
+ATLAS chat-bot start
+
+![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/1_ChatBotStart.png)
+
+ATLAS user input insertion
+
+![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/3_ChatBotInput.png)
+
+ATLAS Planners Result
+
+![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/4_ChatBotPlanningResults.png)
+
+ATLAS Mobility Services Details results
+
+![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/5_ChatBotLegsResults.png)
+
 
 
 
