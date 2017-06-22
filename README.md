@@ -45,7 +45,7 @@ The main entry point for the demonstrator is:
 
 /demonstrator/src/main/java/eu/domainobjects/Demonstrator.java
 
-when Demonstrator is started, select File-> Open Scenario from the window menu and the scenario will be loaded.
+when Demonstrator is started, select File -> Open Scenario from the window menu and the scenario will be loaded.
 
 To run the demonstrator, which is sinchronized with the Telegram chat-bot please press STEP or PLAY on the demonstrator, and START on the chat-bot.
 
