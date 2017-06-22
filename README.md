@@ -17,7 +17,7 @@ advanced techniques for dynamic service adaptation. To show our platform in acti
 we have implemented and evaluated a world-wide travel assistant supporting
 users for the whole travel duration.
 
-![alt text]()
+![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/DEMO_Overview.png)
 
 ## Dependencies and how to build ATLAS
 
