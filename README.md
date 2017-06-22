@@ -83,19 +83,25 @@ ATLAS chat-bot start
   <img src="https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/1_ChatBotStart.png" width="350"/>
 </p>
 
-![Screenshot](1_ChatBotStart.png)
-
 ATLAS user input insertion
 
-![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/3_ChatBotInput.png)
+<p align="center">
+  <img src="https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/3_ChatBotInput.png" width="350"/>
+</p>
 
 ATLAS Planners Result
 
-![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/4_ChatBotPlanningResults.png)
+<p align="center">
+  <img src="https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/4_ChatBotPlanningResults.png" width="350"/>
+</p>
 
 ATLAS Mobility Services Details results
 
-![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/5_ChatBotLegsResults.png)
+<p align="center">
+  <img src="https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/5_ChatBotLegsResults.png" width="350"/>
+</p>
+
+
 
 
 
