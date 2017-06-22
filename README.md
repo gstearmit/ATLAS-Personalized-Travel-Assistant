@@ -23,6 +23,19 @@ users for the whole travel duration.
   <img src="https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/DEMO_Overview.png" width="700"/>
 </p>
 
+## Contributors
+
+This study has been designed, developed, and reported by the following investigators:
+
+* Antonio Bucchiarone - Fondazione Bruno Kessler (FBK, Trento - Italy)
+
+* Martina de Sanctis - Fondazione Bruno Kessler
+
+* Annapaola Marconi - Fondazione Bruno Kessler
+
+For any information, interested researchers can contact us by writing an email to msanctis@fbk.eu.
+
+
 ## Dependencies and how to build ATLAS
 
 ATLAS has been developed in Java, by using Eclipse as development IDE.
