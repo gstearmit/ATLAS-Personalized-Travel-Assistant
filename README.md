@@ -77,7 +77,7 @@ User Process: Execution of the dynamically selected mobility transport service
 
 ATLAS chat-bot start
 
-![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/1_ChatBotStart.png)
+![Screenshot](1_ChatBotStart.png)
 
 ATLAS user input insertion
 
