@@ -20,7 +20,7 @@ users for the whole travel duration.
 ## ATLAS Overview
 
 <p align="center">
-  <img src="https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/DEMO_Overview.png" width="350"/>
+  <img src="https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/DEMO_Overview.png" width="450"/>
 </p>
 
 ## Dependencies and how to build ATLAS
