@@ -17,6 +17,8 @@ advanced techniques for dynamic service adaptation. To show our platform in acti
 we have implemented and evaluated a world-wide travel assistant supporting
 users for the whole travel duration.
 
+![alt text]()
+
 ## Dependencies and how to build ATLAS
 
 ATLAS has been developed in Java, by using Eclipse as development IDE.
