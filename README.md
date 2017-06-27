@@ -31,6 +31,8 @@ This study has been designed, developed, and reported by the following investiga
 
 * <b> Martina De Sanctis </b> - Fondazione Bruno Kessler
 
+* <b> Michael Dolzani </b> - University of Trento, Italy
+
 * <b> Annapaola Marconi </b> - Fondazione Bruno Kessler
 
 For any information, interested researchers can contact us by writing an email to msanctis@fbk.eu.
