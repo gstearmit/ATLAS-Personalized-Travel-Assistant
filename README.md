@@ -27,11 +27,11 @@ users for the whole travel duration.
 
 This study has been designed, developed, and reported by the following investigators:
 
-* Antonio Bucchiarone - Fondazione Bruno Kessler (FBK, Trento - Italy)
+* <b> Antonio Bucchiarone </b> - Fondazione Bruno Kessler (FBK, Trento - Italy)
 
-* Martina De Sanctis - Fondazione Bruno Kessler
+* <b> Martina De Sanctis </b> - Fondazione Bruno Kessler
 
-* Annapaola Marconi - Fondazione Bruno Kessler
+* <b> Annapaola Marconi </b> - Fondazione Bruno Kessler
 
 For any information, interested researchers can contact us by writing an email to msanctis@fbk.eu.
 
@@ -64,15 +64,15 @@ The main entry point for the demonstrator is:
 
 /demonstrator/src/main/java/eu/domainobjects/Demonstrator.java
 
-when Demonstrator is started, select File -> Open Scenario from the window menu and the scenario will be loaded.
+when the ATLAS demonstrator is started, select <b>File</b> -> <b>Open Scenario</b> from the window menu and the scenario will be loaded.
 
-To run the demonstrator, which is sinchronized with the Telegram chat-bot please press STEP or PLAY on the demonstrator, and START on the chat-bot.
+To run the demonstrator, which is sinchronized with the Telegram chat-bot please press <i>STEP</i> or <i>PLAY</i> on the demonstrator, and <i>START</i> on the chat-bot.
 
 ## ATLAS demonstrator and Chat-bot execution Examples
 
 ### Demonstrator Interface
 
-Domain Objects Model Tab
+Domain Objects Models Tab
 
 ![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/modelsTab.PNG)
 
@@ -80,11 +80,11 @@ Domain Objects Processes Execution Tab
 
 ![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/ExecutionTab.PNG)
 
-Travel Assistant Process: Execution of the Selected Planning Mode (Global in the example)
+<b>Travel Assistant Process</b>: Execution of the Selected Planning Mode (Global in the example)
 
 ![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/PlanningModeSelection.PNG)
 
-User Process: Execution of the dynamically selected mobility transport service
+<b>User Process</b>: Execution of the dynamically selected mobility transport service
 
 ![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/JourneyLegRefinement.PNG)
 
