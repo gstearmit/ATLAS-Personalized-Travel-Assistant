@@ -76,7 +76,7 @@ To run the demonstrator, which is sinchronized with the Telegram chat-bot please
 
 Domain Objects Models Tab
 
-![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/modelsTab.PNG)
+![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/demoFragmentModel.PNG)
 
 Domain Objects Processes Execution Tab
 
