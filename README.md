@@ -80,11 +80,11 @@ Domain Objects Models Tab
 
 Domain Objects Processes Execution Tab
 
-![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/ExecutionTab.PNG)
+![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/demoUserProcess.PNG)
 
 <b>Travel Assistant Process</b>: Execution of the Selected Planning Mode (Global in the example)
 
-![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/PlanningModeSelection.PNG)
+![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/demoGlobalPlanning.PNG)
 
 <b>User Process</b>: Execution of the dynamically selected mobility transport service
 
