@@ -111,13 +111,13 @@ ATLAS user input insertion
 ATLAS Planners Result
 
 <p align="center">
-  <img src="https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/4_ChatBotPlanningResults.png" width="350"/>
+  <img src="https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/ATLAS_resultList.png" width="350"/>
 </p>
 
 ATLAS Mobility Services Details results
 
 <p align="center">
-  <img src="https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/5_ChatBotLegsResults.png" width="350"/>
+  <img src="https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/ATLAS_choosenSolution.png" width="350"/>
 </p>
 
 
