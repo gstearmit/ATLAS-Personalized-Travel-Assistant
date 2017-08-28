@@ -20,7 +20,7 @@ users for the whole travel duration.
 ## ATLAS Overview
 
 <p align="center">
-  <img src="https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/DEMO_Overview.png" width="700"/>
+  <img src="https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/DEMO_Overview.png" width="650"/>
 </p>
 
 ## Contributors
@@ -74,11 +74,15 @@ To run the demonstrator, which is sinchronized with the Telegram chat-bot please
 
 ### Demonstrator Interface
 
-Domain Objects Models Tab
+Domain Objects Models Tab: Example of a <i>fragment</i>
 
 ![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/demoFragmentModel.PNG)
 
-Domain Objects Processes Execution Tab
+Domain Objects Models Tab: Example of a <i>domain property</i>
+
+![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/demoDomainPropertyModel.PNG)
+
+Domain Objects Runtime Execution Tab
 
 ![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/demoUserProcess.PNG)
 
@@ -88,7 +92,7 @@ Domain Objects Processes Execution Tab
 
 <b>User Process</b>: Execution of the dynamically selected mobility transport service
 
-![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/JourneyLegRefinement.PNG)
+![alt text](https://github.com/das-fbk/ATLAS-Personalized-Travel-Assistant/blob/master/demoRideSharing.PNG)
 
 ### Telegram chat-bot Interface
 
