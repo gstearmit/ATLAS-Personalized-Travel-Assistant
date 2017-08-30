@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns5:composition xmlns="http://das.fbk.eu/Fragment" xmlns:ns2="http://das.fbk.eu/Annotation" xmlns:ns3="http://das.fbk.eu/DataType" xmlns:ns4="http://das.fbk.eu/Process" xmlns:ns5="http://das.fbk.eu/Composition" xmlns:ns6="http://das.fbk.eu/DomainObject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://soa.fbk.eu/Composition null/Schemata/Composition.xsd">
+    <ns5:domainProperties>
+        <ns5:domainProperty type="DataViewer" oid="DataViewer"/>
+        <ns5:domainProperty type="TravelAssistant" oid="TravelAssistant"/>
+    </ns5:domainProperties>
+    <ns5:fragments>
+        <ns5:fragment type="TA_planAssistant" sid="service1">
+            <ns5:assignment oid="DataViewer" o_name="DataViewer"/>
+            <ns5:assignment oid="TravelAssistant" o_name="TravelAssistant"/>
+        </ns5:fragment>
+        <ns5:fragment type="TA_refineLeg" sid="service2">
+            <ns5:assignment oid="DataViewer" o_name="DataViewer"/>
+            <ns5:assignment oid="TravelAssistant" o_name="TravelAssistant"/>
+        </ns5:fragment>
+    </ns5:fragments>
+    <ns5:synchronization>
+        <ns5:point priority="0">
+            <ns5:domainProperty oid="TravelAssistant">
+                <ns5:state>ASSISTANCE_COMPLETE</ns5:state>
+            </ns5:domainProperty>
+        </ns5:point>
+    </ns5:synchronization>
+    <ns5:runtime>
+        <ns5:domainProperties>
+            <ns5:domainProperty oid="DataViewer">INITIAL</ns5:domainProperty>
+            <ns5:domainProperty oid="TravelAssistant">INITIAL</ns5:domainProperty>
+        </ns5:domainProperties>
+        <ns5:fragments>
+            <ns5:fragment sid="service1">ST0</ns5:fragment>
+            <ns5:fragment sid="service2">ST0</ns5:fragment>
+        </ns5:fragments>
+    </ns5:runtime>
+</ns5:composition>

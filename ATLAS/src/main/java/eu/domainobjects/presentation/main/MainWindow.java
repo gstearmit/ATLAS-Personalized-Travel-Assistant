@@ -56,7 +56,9 @@ import eu.domainobjects.presentation.main.action.listener.MenuExitListener;
 import eu.domainobjects.presentation.main.action.listener.OpenScenarioListener;
 import eu.domainobjects.presentation.main.action.listener.SelectInstanceListener;
 import eu.domainobjects.presentation.main.action.listener.StepButtonActionListener;
+import eu.domainobjects.presentation.main.process.ObjectDiagramPanel;
 import eu.domainobjects.presentation.main.process.ProcessModelPanel;
+import eu.domainobjects.presentation.main.process.ServiceModelPanel;
 import eu.domainobjects.utils.DoiBean;
 import eu.domainobjects.utils.UserData;
 import eu.fbk.das.process.engine.api.domain.ProcessDiagram;
@@ -104,7 +106,7 @@ public class MainWindow {
 	private JButton btnPreviousEntity;
 	private JButton btnStep;
 	private JButton btnPlaypause;
-	//private JButton btnAdd;
+	private JButton btnAdd;
 	private JList<String> stateVariablesList;
 	private ActivityWindow refinementView;
 	private JFrame refinementFrame;
@@ -134,6 +136,7 @@ public class MainWindow {
 	private JScrollPane processExecutionScrollPane;
 	private Font lblFont;
 	private JPanel modelPanel;
+	private JPanel systemViewPanel;
 
 	/**
 	 * Create the application.
@@ -185,9 +188,16 @@ public class MainWindow {
 		// Panel for the Domain Objects Models Tab
 		modelPanel = new DomainObjectsModelsPanel(this);
 
+		// panel for the system view
+		systemViewPanel = new SystemViewPanel(this);
+		// systemPanel.setVisible(true);
+		// systemPanel.setLayout(new GridBagLayout());
+		// systemPanel.setBackground(Color.decode(BACKGROUD_COLOR));
+
 		frameTabbedPane.setFont(tabFont);
 		frameTabbedPane.addTab("Domain Objects Models", null, modelPanel, null);
 		frameTabbedPane.addTab("Runtime Execution", null, mainPanel, null);
+		// frameTabbedPane.addTab("System View", null, systemViewPanel, null);
 		frameTabbedPane.setBackground(Color.decode(BACKGROUD_COLOR));
 		// frameTabbedPane.setBorder(new
 		// LineBorder(Color.decode(BORDER_COLOR)));
@@ -436,9 +446,11 @@ public class MainWindow {
 		JMenu mnScenario = new JMenu("File");
 		menuBar.add(mnScenario);
 
-	//	JMenuItem mntmOpen = new JMenuItem("Open");
-	//	mntmOpen.addActionListener(new OpenScenarioListener());
-	//	mnScenario.add(mntmOpen);
+		// The open menu file is commented for now; so, the user cannot choice
+		// among scenarios
+		// JMenuItem mntmOpen = new JMenuItem("Open");
+		// mntmOpen.addActionListener(new OpenScenarioListener());
+		// mnScenario.add(mntmOpen);
 
 		JMenuItem mnExit = new JMenuItem("Exit");
 		mnExit.addActionListener(new MenuExitListener());
@@ -525,8 +537,8 @@ public class MainWindow {
 
 		});
 
-		//btnAdd = new JButton("Add Domain Object");
-		//btnAdd.setIcon(addIcon);
+		btnAdd = new JButton("Add Domain Object");
+		btnAdd.setIcon(addIcon);
 
 		JButton btnLogo = new JButton("");
 		// btnLogo.setSize(30, 65);
@@ -535,7 +547,7 @@ public class MainWindow {
 
 		toolbar.add(btnPlaypause);
 		toolbar.add(btnStep);
-		//toolbar.add(btnAdd);
+		// toolbar.add(btnAdd);
 		toolbar.add(Box.createHorizontalGlue());
 		toolbar.add(btnLogo);
 
@@ -699,6 +711,30 @@ public class MainWindow {
 		return scrollPane;
 	}
 
+	public JScrollPane createServicePanelScrollPane(
+			ServiceModelPanel serviceModelPanel, int width, int height) {
+		JScrollPane scrollPane = new JScrollPane(serviceModelPanel);
+		scrollPane
+				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane
+				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBorder(new LineBorder(Color.decode(BORDER_COLOR)));
+		scrollPane.setPreferredSize(new Dimension(width, height));
+		return scrollPane;
+	}
+
+	public JScrollPane createPropertyPanelScrollPane(
+			ObjectDiagramPanel propertyModelPanel, int width, int height) {
+		JScrollPane scrollPane = new JScrollPane(propertyModelPanel);
+		scrollPane
+				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane
+				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBorder(new LineBorder(Color.decode(BORDER_COLOR)));
+		scrollPane.setPreferredSize(new Dimension(width, height));
+		return scrollPane;
+	}
+
 	public void addButtonToTab(final JTabbedPane tabEntity) {
 		JButton button = new JButton("...");
 		button.addMouseListener(new EntityDetailActionListener(this));
@@ -716,7 +752,7 @@ public class MainWindow {
 		toolbar.setVisible(visible);
 		btnPlaypause.setVisible(visible);
 		btnStep.setVisible(visible);
-		//btnAdd.setVisible(visible);
+		btnAdd.setVisible(visible);
 		btnPreviousEntity.setVisible(visible);
 		btnNextEntity.setVisible(visible);
 	}
@@ -996,6 +1032,10 @@ public class MainWindow {
 
 	public JPanel getModelPanel() {
 		return modelPanel;
+	}
+
+	public JPanel getSystemViewPanel() {
+		return systemViewPanel;
 	}
 
 }

@@ -19,6 +19,7 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.generics.BotSession;
 import org.w3c.dom.Element;
 
+import com.google.common.collect.ArrayListMultimap;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
@@ -26,6 +27,7 @@ import eu.domainobjects.controller.events.DomainObjectInstanceSelection;
 import eu.domainobjects.controller.events.StepEvent;
 import eu.domainobjects.presentation.main.DomainObjectsModelsPanel;
 import eu.domainobjects.presentation.main.MainWindow;
+import eu.domainobjects.presentation.main.SystemViewPanel;
 import eu.domainobjects.presentation.main.action.listener.DomainObjectDefinitionSelectionByName;
 import eu.domainobjects.presentation.main.action.listener.StepButtonActionListener;
 import eu.domainobjects.presentation.main.events.DomainObjectInstanceSelectionByName;
@@ -45,6 +47,7 @@ import eu.fbk.das.domainobject.executable.DVMDefineDataPatternExecutable;
 import eu.fbk.das.domainobject.executable.InsertDestinationExecutable;
 import eu.fbk.das.domainobject.executable.InsertOptionalDataExecutable;
 import eu.fbk.das.domainobject.executable.Rome2RioCallExecutable;
+import eu.fbk.das.domainobject.executable.STMServiceCallExecutable;
 import eu.fbk.das.domainobject.executable.SelectPlanningModeExecutable;
 import eu.fbk.das.domainobject.executable.ShowResultsExecutable;
 import eu.fbk.das.domainobject.executable.StartChatbotExecutable;
@@ -70,7 +73,11 @@ import eu.fbk.das.process.engine.api.domain.ObjectDiagram;
 import eu.fbk.das.process.engine.api.domain.ProcessActivity;
 import eu.fbk.das.process.engine.api.domain.ProcessDiagram;
 import eu.fbk.das.process.engine.api.domain.ServiceDiagram;
+import eu.fbk.das.process.engine.api.domain.exceptions.InvalidObjectCurrentStateException;
+import eu.fbk.das.process.engine.api.domain.exceptions.InvalidObjectInitialStateException;
+import eu.fbk.das.process.engine.api.domain.exceptions.InvalidObjectTransitionException;
 import eu.fbk.das.process.engine.api.jaxb.DomainObject;
+import eu.fbk.das.process.engine.api.jaxb.DomainProperty;
 import eu.fbk.das.process.engine.api.jaxb.VariableType;
 import eu.fbk.das.process.engine.impl.ProcessEngineImpl;
 import eu.fbk.das.process.engine.impl.util.Parser;
@@ -93,6 +100,7 @@ public class MainController {
 	private Map<String, UserData> userData = new HashMap<String, UserData>();
 
 	private Map<String, List<ServiceDiagram>> doServiceDiagrams = new HashMap<String, List<ServiceDiagram>>();
+	private Map<String, List<ObjectDiagram>> doKnowledgeDiagrams = new HashMap<String, List<ObjectDiagram>>();
 
 	private DoiBean current;
 
@@ -199,6 +207,7 @@ public class MainController {
 
 		TelegramBotsApi api = new TelegramBotsApi();
 		TravelAssistantBot bot = null;
+
 		try {
 
 			String botData = this.getBotParameters();
@@ -210,6 +219,10 @@ public class MainController {
 
 			String botName = nameValues[1];
 			String botToken = tokenValues[1];
+
+			// bot = new TravelAssistantBot("TestTravelAssistantBot",
+			// "348692232:AAGyApErXx36PFRisENTClY1jEsYgZcvbTI", false,
+			// false, false, false, aListner, event);
 
 			bot = new TravelAssistantBot(botName, botToken, false, false,
 					false, false, aListner, event);
@@ -325,6 +338,14 @@ public class MainController {
 		processEngineFacade.addExecutableHandler(
 				"VT_ServiceCall",
 				new VTServiceCallExecutable(processEngineFacade
+						.getProcessEngine(), bot));
+		processEngineFacade.addExecutableHandler(
+				"STM_ServiceCall",
+				new STMServiceCallExecutable(processEngineFacade
+						.getProcessEngine(), bot));
+		processEngineFacade.addExecutableHandler(
+				"STM_ServiceCall",
+				new STMServiceCallExecutable(processEngineFacade
 						.getProcessEngine(), bot));
 
 		// handler for hoaa for pre-phase
@@ -463,7 +484,7 @@ public class MainController {
 			clearPanels();
 			window.refreshWindow();
 			updateFragmentsModels(modelName);
-			updateDomainPropertisModel(modelName);
+			updateDomainPropertiesModel(modelName);
 			updateCoreProcessModel(modelName);
 			updateDefinitionModel(modelName);
 
@@ -492,15 +513,17 @@ public class MainController {
 				.updateDefinitionPanel(filePath);
 	}
 
-	private void updateDomainPropertisModel(String modelName) {
+	private void updateDomainPropertiesModel(String modelName) {
 		List<String> properties = new ArrayList<String>();
 
 		DomainObject current = null;
+		DomainObjectDefinition currentDod = null;
 		List<DomainObjectDefinition> dod = processEngineFacade
 				.getDomainObjectDefinitions();
 		for (DomainObjectDefinition definition : dod) {
 			if (definition.getDomainObject().getName().equals(modelName)) {
 				current = definition.getDomainObject();
+				currentDod = definition;
 				break;
 			}
 		}
@@ -528,6 +551,22 @@ public class MainController {
 					properties.add(externalProperty);
 				}
 			}
+		}
+		List<ObjectDiagram> knowledge = new ArrayList<ObjectDiagram>();
+
+		if (!doKnowledgeDiagrams.containsKey(modelName)) {
+			for (DomainProperty dp : currentDod.getProperties()) {
+				try {
+					knowledge.add(parser.convertToObjectDiagram(dp));
+				} catch (InvalidObjectInitialStateException e) {
+					e.printStackTrace();
+				} catch (InvalidObjectTransitionException e) {
+					e.printStackTrace();
+				} catch (InvalidObjectCurrentStateException e) {
+					e.printStackTrace();
+				}
+			}
+			doKnowledgeDiagrams.put(modelName, knowledge);
 		}
 
 		((DomainObjectsModelsPanel) window.getModelPanel())
@@ -571,14 +610,12 @@ public class MainController {
 	public void updateFragmentsModelsTab(String fragmentName) {
 		List<ServiceDiagram> services = new ArrayList<ServiceDiagram>();
 		String filePath = FRAGMENTS_DIR.concat(fragmentName).concat(".xml");
-		((DomainObjectsModelsPanel) window.getModelPanel())
-				.updateFragmentPanel(filePath);
 
 		if (doServiceDiagrams.containsKey(currentSelectedDomainObjectName)) {
 			services = doServiceDiagrams.get(currentSelectedDomainObjectName);
 		}
 
-		ServiceDiagram currentService;
+		ServiceDiagram currentService = null;
 		for (ServiceDiagram sd : services) {
 			if (sd.getSid().equalsIgnoreCase(fragmentName)) {
 				currentService = sd;
@@ -586,16 +623,33 @@ public class MainController {
 			}
 		}
 
-		// TODO: chiamata a metodo che mostra il frammento come processo. Vedi
-		// come fa per process diagram
+		((DomainObjectsModelsPanel) window.getModelPanel())
+				.updateFragmentPanel(filePath, currentService);
+
 	}
 
 	public void updatePropertyModelTab(String propertyName) {
 		propertyName = propertyName.split("/")[1];
 		String filePath = DOMAIN_KNOWLEDGE_DIR.concat(propertyName).concat(
 				".xml");
+
+		List<ObjectDiagram> knowledge = new ArrayList<ObjectDiagram>();
+
+		if (doKnowledgeDiagrams.containsKey(currentSelectedDomainObjectName)) {
+			knowledge = doKnowledgeDiagrams
+					.get(currentSelectedDomainObjectName);
+		}
+
+		ObjectDiagram currentProperty = null;
+		for (ObjectDiagram od : knowledge) {
+			if (od.getOid().equalsIgnoreCase(propertyName)) {
+				currentProperty = od;
+				break;
+			}
+		}
+
 		((DomainObjectsModelsPanel) window.getModelPanel())
-				.updatePropertyPanel(filePath);
+				.updatePropertyPanel(filePath, currentProperty);
 	}
 
 	// private void updateComboboxEntities() {
@@ -618,6 +672,14 @@ public class MainController {
 				response.add(dod.getDomainObject().getName());
 			}
 		}
+
+		// response.add("TrentinoTrasporti");
+		// response.add("Flixbus");
+		// response.add("CityBikes");
+		// response.add("TravelForLondon");
+		// response.add("EMTMalaga");
+		// response.add("e.motionBikeSharing");
+
 		((DomainObjectsModelsPanel) window.getModelPanel())
 				.updateListDomainObjectsEntities(response);
 
@@ -1096,6 +1158,14 @@ public class MainController {
 		}
 		// System.out.println(result);
 		return result;
+	}
+
+	public void updateHierarchyTab(
+			ArrayListMultimap<String, Map<String, List<String>>> softDependencies) {
+
+		((SystemViewPanel) window.getSystemViewPanel())
+				.updateViewPanel(softDependencies);
+
 	}
 
 }

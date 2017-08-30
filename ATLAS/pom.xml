@@ -5,8 +5,8 @@
 	<groupId>eu.das.atlas</groupId>
 	<artifactId>demonstrator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ATLAS</name>
-	<description>ATLAS - personAlized TraveL AssiStant</description>
+	<name>ATLAS-Personalized Travel Assistant</name>
+	<description>Demonstrator for the ATLAS project</description>
 
 	<!-- project properties -->
 	<properties>
@@ -64,20 +64,19 @@
 		</plugins>
 	</build>
 
-
 	<!-- dependencies -->
 	<dependencies>
 		<!-- Allow ensembles dependencies -->
-		<!--  <dependency>
-			<groupId>eu.fbk.das</groupId>
-			<artifactId>process-engine-impl</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>eu.allowensembles</groupId>
-			<artifactId>handlers</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>-->
+<!-- 		<dependency> -->
+<!-- 			<groupId>eu.fbk.das</groupId> -->
+<!-- 			<artifactId>process-engine-impl</artifactId> -->
+<!-- 			<version>0.0.1-SNAPSHOT</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>eu.allowensembles</groupId> -->
+<!-- 			<artifactId>handlers</artifactId> -->
+<!-- 			<version>0.0.1-SNAPSHOT</version> -->
+<!-- 		</dependency> -->
 		<!-- General dependencies-->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
@@ -143,7 +142,7 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>-->
 		
-		 <dependency>
+		<dependency>
           <groupId>org.telegram</groupId>
           <artifactId>telegrambots</artifactId>
           <version>2.4.4.5</version>

@@ -10,6 +10,8 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.google.common.collect.ArrayListMultimap;
+
 import eu.domainobjects.utils.DoiBean;
 import eu.fbk.das.adaptation.AdaptationManager;
 import eu.fbk.das.adaptation.api.AdaptationManagerInterface;
@@ -27,6 +29,7 @@ import eu.fbk.das.process.engine.api.domain.exceptions.InvalidFlowActivityExcept
 import eu.fbk.das.process.engine.api.domain.exceptions.InvalidFlowInitialStateException;
 import eu.fbk.das.process.engine.api.domain.exceptions.InvalidObjectCurrentStateException;
 import eu.fbk.das.process.engine.api.exceptions.ProcessEngineRuntimeException;
+import eu.fbk.das.process.engine.api.jaxb.DomainObject.DomainKnowledge.ExternalDomainProperty;
 import eu.fbk.das.process.engine.api.jaxb.Fragment;
 import eu.fbk.das.process.engine.api.jaxb.scenario.Scenario;
 import eu.fbk.das.process.engine.api.jaxb.scenario.Scenario.DomainObject;
@@ -34,6 +37,7 @@ import eu.fbk.das.process.engine.api.jaxb.scenario.Scenario.DomainObject.DomainO
 import eu.fbk.das.process.engine.api.util.DomainObjectInstanceWithVariable;
 import eu.fbk.das.process.engine.impl.DomainObjectManager;
 import eu.fbk.das.process.engine.impl.ProcessEngineImpl;
+import eu.fbk.das.process.engine.impl.util.Parser;
 import eu.fbk.das.process.engine.impl.util.ScenarioLoader;
 //import eu.allowensembles.utility.controller.Preferences;
 //import eu.allowensembles.utils.ParserUtil;
@@ -75,6 +79,7 @@ public class ProcessEngineFacade {
 
 	public void loadScenario(String scenarioFileName, MainController controller) {
 		logger.debug("Load scenario: " + scenarioFileName);
+		List<DomainObjectDefinition> scenarioDefinitions = new ArrayList<DomainObjectDefinition>();
 		// load
 		ScenarioLoader loader = new ScenarioLoader(workingDir);
 		Scenario scenario = loader.load(scenarioFileName);
@@ -82,6 +87,7 @@ public class ProcessEngineFacade {
 			DomainObjectDefinition ed;
 			try {
 				ed = manager.add(manager.load(domainObject.getFile()));
+				scenarioDefinitions.add(ed);
 				for (eu.fbk.das.process.engine.api.jaxb.scenario.Scenario.DomainObject.DomainObjectInstance d : domainObject
 						.getDomainObjectInstance()) {
 					DomainObjectInstance doi = manager.buildInstance(ed, d,
@@ -139,6 +145,89 @@ public class ProcessEngineFacade {
 				logger.error(e.getMessage(), e);
 			}
 		}
+		defineDesignTimeModelHierarchy(scenarioDefinitions, controller);
+	}
+
+	private void defineDesignTimeModelHierarchy(
+			List<DomainObjectDefinition> scenarioDefinitions,
+			MainController controller) {
+
+		ArrayListMultimap<String, Map<String, List<String>>> softDependencies = ArrayListMultimap
+				.create();
+		Parser parser = new Parser();
+
+		for (DomainObjectDefinition domainObjectDef : scenarioDefinitions) {
+			// prendi dod, parsalo e leggi knowledge e popola hashmap
+			String internalPropertyName = new String();
+			Map<String, List<String>> doKnowledge = new HashMap<String, List<String>>();
+			List<String> externalKnowledge = new ArrayList<String>();
+			if (domainObjectDef.getDomainObject().getDomainKnowledge()
+					.getInternalDomainProperty().size() != 0) {
+				internalPropertyName = domainObjectDef.getDomainObject()
+						.getDomainKnowledge().getInternalDomainProperty()
+						.get(0).getName().split("/")[1];
+			}
+			if (domainObjectDef.getDomainObject().getDomainKnowledge()
+					.getExternalDomainProperty().size() != 0) {
+				Iterator<ExternalDomainProperty> iterator = domainObjectDef
+						.getDomainObject().getDomainKnowledge()
+						.getExternalDomainProperty().iterator();
+				while (iterator.hasNext()) {
+					externalKnowledge
+							.add(((eu.fbk.das.process.engine.api.jaxb.DomainObject.DomainKnowledge.ExternalDomainProperty) iterator
+									.next()).getName().split("/")[1]);
+				}
+			}
+			doKnowledge.put(internalPropertyName, externalKnowledge);
+			softDependencies.put(domainObjectDef.getDomainObject().getName(),
+					doKnowledge);
+		}
+		controller.updateHierarchyTab(softDependencies);
+
+		// for (String s : softDependencies.keys()) {
+		// List map = softDependencies.get(s);
+		// Map m = (Map) map.get(0);
+		// Iterator<Map.Entry<String, List<String>>> it = m.entrySet()
+		// .iterator();
+		// while (it.hasNext()) {
+		// Map.Entry<String, List<String>> pair = it.next();
+		// String key = pair.getKey();
+		// pair.getValue();
+		// }
+		// }
+
+		// ArrayListMultimap<String, Map<String, List<String>>>
+		// softDependenciesMap = ArrayListMultimap
+		// .create();
+		//
+		// Map<String, List<String>> doKnowledgeUser = new HashMap<String,
+		// List<String>>();
+		// List<String> externalKnowledgeUser = new ArrayList<String>();
+		// externalKnowledgeUser.add("TravelAssistant");
+		// doKnowledgeUser.put("", externalKnowledgeUser);
+		//
+		// Map<String, List<String>> doKnowledgeTA = new HashMap<String,
+		// List<String>>();
+		// List<String> externalKnowledgeTA = new ArrayList<String>();
+		// externalKnowledgeTA.add("GlobalPlanner");
+		// externalKnowledgeTA.add("LocalPlanner");
+		// externalKnowledgeTA.add("DataViewer");
+		// doKnowledgeTA.put("TravelAssistant", externalKnowledgeTA);
+		//
+		// Map<String, List<String>> doKnowledgeBBC = new HashMap<String,
+		// List<String>>();
+		// List<String> externalKnowledgeBBC = new ArrayList<String>();
+		// doKnowledgeBBC.put("RideSharing", externalKnowledgeBBC);
+		//
+		// Map<String, List<String>> doKnowledgeR2R = new HashMap<String,
+		// List<String>>();
+		// List<String> externalKnowledgeR2R = new ArrayList<String>();
+		// doKnowledgeR2R.put("GlobalPlanner", externalKnowledgeR2R);
+		//
+		// softDependenciesMap.put("User", doKnowledgeUser);
+		// softDependenciesMap.put("TelegramTravelAssistant", doKnowledgeTA);
+		// softDependenciesMap.put("BlaBlaCar", doKnowledgeBBC);
+		// softDependenciesMap.put("Rome2Rio", doKnowledgeR2R);
 	}
 
 	/**

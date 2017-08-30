@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.io.IOException;
 import java.net.URL;
@@ -30,16 +31,20 @@ import javax.swing.text.DefaultCaret;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+//import xmleditorkit.XMLDocument;
+//import xmleditorkit.XMLEditorKit;
+import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 
 import eu.domainobjects.presentation.main.action.listener.SelectFragmentListener;
 import eu.domainobjects.presentation.main.action.listener.SelectModelListener;
 import eu.domainobjects.presentation.main.action.listener.SelectPropertyListener;
+import eu.domainobjects.presentation.main.process.ObjectDiagramPanel;
 import eu.domainobjects.presentation.main.process.ProcessModelPanel;
+import eu.domainobjects.presentation.main.process.ServiceModelPanel;
+import eu.fbk.das.process.engine.api.domain.ObjectDiagram;
 import eu.fbk.das.process.engine.api.domain.ProcessDiagram;
-//import xmleditorkit.XMLDocument;
-//import xmleditorkit.XMLEditorKit;
-import com.google.common.base.Charsets;
+import eu.fbk.das.process.engine.api.domain.ServiceDiagram;
 
 /**
  * @author Martina
@@ -196,6 +201,10 @@ public class DomainObjectsModelsPanel extends JPanel {
 	}
 
 	private JTextPane fragmentTextPane = new JTextPane();
+	private ServiceModelPanel serviceModelPanel;
+	private JScrollPane servicePane;
+	private JPanel servicePanel;
+	private JScrollPane serviceScrollPane;
 
 	private Component modelFragmentsPanel() {
 		// main panel
@@ -206,6 +215,14 @@ public class DomainObjectsModelsPanel extends JPanel {
 
 		BoxLayout compLayout = new BoxLayout(panel, BoxLayout.LINE_AXIS);
 		panel.setLayout(compLayout);
+
+		JPanel serviceModel = new JPanel();
+		serviceModel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		serviceModel.setBackground(Color.decode(BACKGROUD_COLOR));
+
+		BoxLayout compLayoutLeft = new BoxLayout(serviceModel, BoxLayout.Y_AXIS);
+		serviceModel.setLayout(compLayoutLeft);
+		serviceModel.setAlignmentY(Component.TOP_ALIGNMENT);
 
 		// label and comboBox for the fragments models selection
 		JPanel panelListFragments = new JPanel();
@@ -234,17 +251,30 @@ public class DomainObjectsModelsPanel extends JPanel {
 		panelListFragments.setAlignmentY(Component.TOP_ALIGNMENT);
 
 		// scrollPane for the textPane showing the xml model of a property
-		JScrollPane scrollPane = defineXMLtextPane(fragmentTextPane, 900, 600);
-		scrollPane.setAlignmentY(Component.TOP_ALIGNMENT);
+		serviceScrollPane = defineXMLtextPane(fragmentTextPane, 900, 600);
+		serviceScrollPane.setAlignmentY(Component.TOP_ALIGNMENT);
+
+		// scroll pane for the service model panel
+		servicePanel = new JPanel();
+		servicePanel.setLayout(new BorderLayout());
+		servicePanel.setBackground(Color.decode(BACKGROUD_COLOR));
+		servicePanel.setBorder(new LineBorder(Color.decode(BORDER_COLOR)));
 
 		panel.add(panelListFragments);
 		panel.add(Box.createRigidArea(new Dimension(0, 5)));
-		panel.add(scrollPane);
+		panel.add(serviceModel);
+		serviceModel.add(servicePanel);
+		serviceModel.add(Box.createRigidArea(new Dimension(0, 5)));
+		serviceModel.add(serviceScrollPane);
 
 		return panel;
 	}
 
 	private JTextPane propertyTextPane = new JTextPane();
+	private JScrollPane propertyScrollPane;
+	private JPanel propertyPanel;
+	private ObjectDiagramPanel propertyModelPanel;
+	private JScrollPane propertyPane;
 
 	private Component modelDomainKnowledgePanel() {
 		// main panel
@@ -255,6 +285,15 @@ public class DomainObjectsModelsPanel extends JPanel {
 
 		BoxLayout compLayout = new BoxLayout(panel, BoxLayout.LINE_AXIS);
 		panel.setLayout(compLayout);
+
+		JPanel propertyModel = new JPanel();
+		propertyModel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		propertyModel.setBackground(Color.decode(BACKGROUD_COLOR));
+
+		BoxLayout compLayoutLeft = new BoxLayout(propertyModel,
+				BoxLayout.Y_AXIS);
+		propertyModel.setLayout(compLayoutLeft);
+		propertyModel.setAlignmentY(Component.TOP_ALIGNMENT);
 
 		// label and comboBox for the domain objects models selection
 		JPanel panelListProperties = new JPanel();
@@ -283,43 +322,51 @@ public class DomainObjectsModelsPanel extends JPanel {
 		panelListProperties.setAlignmentY(Component.TOP_ALIGNMENT);
 
 		// scrollPane for the textPane showing the xml model of a property
-		JScrollPane scrollPane = defineXMLtextPane(propertyTextPane, 900, 600);
-		scrollPane.setAlignmentY(Component.TOP_ALIGNMENT);
+		propertyScrollPane = defineXMLtextPane(propertyTextPane, 900, 600);
+		propertyScrollPane.setAlignmentY(Component.TOP_ALIGNMENT);
+
+		// scroll pane for the property model panel
+		propertyPanel = new JPanel();
+		propertyPanel.setLayout(new BorderLayout());
+		propertyPanel.setBackground(Color.decode(BACKGROUD_COLOR));
+		propertyPanel.setBorder(new LineBorder(Color.decode(BORDER_COLOR)));
 
 		panel.add(panelListProperties);
 		panel.add(Box.createRigidArea(new Dimension(0, 5)));
-		panel.add(scrollPane);
+		panel.add(propertyModel);
+		propertyModel.add(propertyPanel);
+		propertyModel.add(Box.createRigidArea(new Dimension(0, 5)));
+		propertyModel.add(propertyScrollPane);
 
 		return panel;
 	}
 
-	private static final int XML_TEXT_FONT_SIZE = 22;
+	private static final int XML_TEXT_FONT_SIZE = 18;
 	private static final String ATTRIBUTENAME_TAG_COLOR = "#C2185B";
 	private static final String TAGNAME_COLOR = "#1B5E20";
 
 	private JScrollPane defineXMLtextPane(JTextPane textPane, int width,
 			int height) {
-		/*
-		 * XMLEditorKit xmlEditorKit = new XMLEditorKit();
-		 * StyleConstants.setFontSize(XMLDocument.PLAIN_ATTRIBUTES,
-		 * XML_TEXT_FONT_SIZE);
-		 * StyleConstants.setFontSize(XMLDocument.ATTRIBUTENAME_ATTRIBUTES,
-		 * XML_TEXT_FONT_SIZE);
-		 * StyleConstants.setFontSize(XMLDocument.ATTRIBUTEVALUE_ATTRIBUTES,
-		 * XML_TEXT_FONT_SIZE);
-		 * StyleConstants.setFontSize(XMLDocument.BRACKET_ATTRIBUTES,
-		 * XML_TEXT_FONT_SIZE);
-		 * StyleConstants.setFontSize(XMLDocument.COMMENT_ATTRIBUTES,
-		 * XML_TEXT_FONT_SIZE);
-		 * StyleConstants.setFontSize(XMLDocument.TAGNAME_ATTRIBUTES,
-		 * XML_TEXT_FONT_SIZE);
-		 * StyleConstants.setForeground(XMLDocument.ATTRIBUTENAME_ATTRIBUTES,
-		 * Color.decode(ATTRIBUTENAME_TAG_COLOR));
-		 * StyleConstants.setForeground(XMLDocument.TAGNAME_ATTRIBUTES,
-		 * Color.decode(TAGNAME_COLOR));
-		 * StyleConstants.setBold(XMLDocument.ATTRIBUTENAME_ATTRIBUTES, false);
-		 * StyleConstants.setBold(XMLDocument.TAGNAME_ATTRIBUTES, false);
-		 */
+		// XMLEditorKit xmlEditorKit = new XMLEditorKit();
+		// StyleConstants.setFontSize(XMLDocument.PLAIN_ATTRIBUTES,
+		// XML_TEXT_FONT_SIZE);
+		// StyleConstants.setFontSize(XMLDocument.ATTRIBUTENAME_ATTRIBUTES,
+		// XML_TEXT_FONT_SIZE);
+		// StyleConstants.setFontSize(XMLDocument.ATTRIBUTEVALUE_ATTRIBUTES,
+		// XML_TEXT_FONT_SIZE);
+		// StyleConstants.setFontSize(XMLDocument.BRACKET_ATTRIBUTES,
+		// XML_TEXT_FONT_SIZE);
+		// StyleConstants.setFontSize(XMLDocument.COMMENT_ATTRIBUTES,
+		// XML_TEXT_FONT_SIZE);
+		// StyleConstants.setFontSize(XMLDocument.TAGNAME_ATTRIBUTES,
+		// XML_TEXT_FONT_SIZE);
+		// StyleConstants.setForeground(XMLDocument.ATTRIBUTENAME_ATTRIBUTES,
+		// Color.decode(ATTRIBUTENAME_TAG_COLOR));
+		// StyleConstants.setForeground(XMLDocument.TAGNAME_ATTRIBUTES,
+		// Color.decode(TAGNAME_COLOR));
+		// StyleConstants.setBold(XMLDocument.ATTRIBUTENAME_ATTRIBUTES, false);
+		// StyleConstants.setBold(XMLDocument.TAGNAME_ATTRIBUTES, false);
+		//
 		// textPane.setEditorKit(xmlEditorKit);
 
 		textPane.setContentType("text/xml");
@@ -390,14 +437,40 @@ public class DomainObjectsModelsPanel extends JPanel {
 		definitionTextPane.setText(text);
 	}
 
-	public void updateFragmentPanel(String filePath) {
+	public void updateFragmentPanel(String filePath, ServiceDiagram service) {
 		String text = parseXMLFile(filePath);
+
 		fragmentTextPane.setText(text);
+
+		// set the graphical process
+		serviceModelPanel = new ServiceModelPanel(this.window.getController()
+				.getProcessEngineFacade());
+
+		serviceModelPanel.setLayout(new FlowLayout());
+		servicePane = window.createServicePanelScrollPane(serviceModelPanel,
+				1000, 200);
+		serviceModelPanel.defineServiceDiagramProcess(service);
+		servicePanel.removeAll();
+		servicePanel.add(servicePane, BorderLayout.CENTER);
+
+		window.refreshWindow();
 	}
 
-	public void updatePropertyPanel(String filePath) {
+	public void updatePropertyPanel(String filePath, ObjectDiagram property) {
 		String text = parseXMLFile(filePath);
 		propertyTextPane.setText(text);
+
+		// set the graphical property
+		propertyModelPanel = new ObjectDiagramPanel(this.window.getController()
+				.getProcessEngineFacade());
+		propertyModelPanel.setLayout(new FlowLayout());
+		propertyPane = window.createPropertyPanelScrollPane(propertyModelPanel,
+				1000, 200);
+		propertyModelPanel.defineObjectDiagramGraph(property);
+		propertyPanel.removeAll();
+		propertyPanel.add(propertyPane, BorderLayout.CENTER);
+
+		window.refreshWindow();
 	}
 
 	private String parseXMLFile(String urlString) {
