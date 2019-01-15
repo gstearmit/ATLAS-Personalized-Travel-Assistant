@@ -62,6 +62,10 @@ macWinePath=/opt/local/bin/wine macwsynthPath=/opt/local/bin/wsynth.exe
 
 ## How to run
 
+In order to run the demonstrator, a Google API key is required. Once you get your own key, open the file <i>requiredKeys.txt</i> and insert your Google key in place of the string <i><put_your_key_here></i>.
+  
+The rome2rio key is available, but it would be better if you get and use your own rome2rio key, by updating the <i>requiredKeys.txt</i> file.
+
 The main entry point for the demonstrator is:
 
 /demonstrator/src/main/java/eu/domainobjects/Demonstrator.java
