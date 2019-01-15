@@ -14,6 +14,8 @@ public final class DemonstratorConstant {
 	public static final String UMS_PREFIX = "UrbanMobilitySystem";
 	public static final String FILE_SEPARATOR = System
 			.getProperty("file.separator");
+	
+	//public static final String FILE_SEPARATOR = "\\";
 
 	// storyboard constants for storyboard 1
 	public static final String STORYBOARD1_MAIN_XML = "Storyboard1-main.xml";

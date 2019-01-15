@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<composition xmlns="http://das.fbk.eu/Composition" xmlns:ns2="http://das.fbk.eu/Annotation" xmlns:ns3="http://das.fbk.eu/Process" xmlns:ns4="http://das.fbk.eu/DomainObject" xmlns:ns5="http://das.fbk.eu/DataType" xmlns:ns6="http://das.fbk.eu/Fragment" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://soa.fbk.eu/Composition null/Schemata/Composition.xsd">
+    <domainProperties>
+        <domainProperty type="DataViewer" oid="DataViewer"/>
+    </domainProperties>
+    <fragments>
+        <fragment type="DVM_displayData" sid="service16">
+            <assignment oid="DataViewer" o_name="DataViewer"/>
+        </fragment>
+    </fragments>
+    <synchronization>
+        <point priority="0">
+            <domainProperty oid="DataViewer">
+                <state>VIEWER_PATTERN_DEFINED</state>
+            </domainProperty>
+        </point>
+    </synchronization>
+    <runtime>
+        <domainProperties>
+            <domainProperty oid="DataViewer">INITIAL</domainProperty>
+        </domainProperties>
+        <fragments>
+            <fragment sid="service16">ST0</fragment>
+        </fragments>
+    </runtime>
+</composition>

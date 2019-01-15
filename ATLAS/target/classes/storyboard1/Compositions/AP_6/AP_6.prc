@@ -5,22 +5,22 @@
             <name>TA_StartLegHandling</name>
             <order>0</order>
         </ns2:invoke>
-        <ns2:pick xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="processActivity">
+        <ns2:switch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="processActivity">
             <name>TA_IdentifyLeg</name>
             <order>1</order>
-        </ns2:pick>
-        <ns2:pick xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="processActivity">
+        </ns2:switch>
+        <ns2:switch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="processActivity">
             <name>TA_HandleLegResults</name>
             <order>2</order>
-        </ns2:pick>
-        <ns2:pick xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="processActivity">
+        </ns2:switch>
+        <ns2:switch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="processActivity">
             <name>TA_OrganizeData</name>
             <order>3</order>
-        </ns2:pick>
-        <ns2:pick xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="processActivity">
+        </ns2:switch>
+        <ns2:switch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="processActivity">
             <name>TA_ShowLegResults</name>
             <order>4</order>
-        </ns2:pick>
+        </ns2:switch>
         <ns2:invoke>
             <name>TA_EndLegHandling</name>
             <order>5</order>

@@ -1,13 +1,21 @@
 package eu.domainobjects.presentation.main;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
@@ -17,6 +25,8 @@ import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.view.mxGraph;
+
+import eu.fbk.das.process.engine.api.DomainObjectInstance;
 
 public class SystemViewPanel extends JPanel {
 
@@ -33,66 +43,109 @@ public class SystemViewPanel extends JPanel {
 	// private static final Font TAB_FONT = new Font("Verdana", Font.PLAIN, 18);
 
 	private MainWindow window;
-	mxGraph graph = new mxGraph();
-	Object parent = graph.getDefaultParent();
-	mxGraphComponent graphComponent = new mxGraphComponent(graph);
-	mxHierarchicalLayout layout;
+
+	private mxGraph designTimeGraph = new mxGraph();
+	private Object designTimeParent = designTimeGraph.getDefaultParent();
+	private mxGraphComponent designTimeGraphComponent = new mxGraphComponent(
+			designTimeGraph);
+	private mxHierarchicalLayout layout;
+	private JPanel designTimePanel;
+
+	private mxGraph runTimeGraph = new mxGraph();
+	private Object runTimeParent = runTimeGraph.getDefaultParent();
+	private mxGraphComponent runTimeGraphComponent = new mxGraphComponent(
+			runTimeGraph);
+	private mxHierarchicalLayout runtimeLayout;
+	private JPanel runTimePanel;
 
 	public SystemViewPanel(MainWindow mainWindow) {
 
 		this.window = mainWindow;
-		graph = new mxGraph();
-		parent = graph.getDefaultParent();
-		graphComponent = new mxGraphComponent(graph);
-		layout = new mxHierarchicalLayout(graph, SwingConstants.NORTH);
-
-		// add graphComponent to panel
-		graphComponent.setBorder(null);
-		graphComponent.setEnabled(false);
-		// graphComponent.setAlignmentY(SwingConstants.BOTTOM);
-		graphComponent.getViewport().setBackground(new Color(1, 1, 1, 0f));
+		this.setBorder(new EmptyBorder(10, 10, 10, 10));
 		this.setBackground(Color.decode(BACKGROUD_COLOR));
-		this.add(graphComponent);
+		BoxLayout mainLayout = new BoxLayout(this, BoxLayout.X_AXIS);
+		this.setLayout(mainLayout);
+
+		// scroll pane for the design time hierarchy panel
+		designTimePanel = new JPanel();
+		JScrollPane designTimeScrollPane = hierarchyPanel(designTimePanel);
+
+		// scroll pane for the runtime hierarchy panel
+		runTimePanel = new JPanel();
+		JScrollPane runTimescrollPane = hierarchyPanel(runTimePanel);
+
+		// design time graph
+		designTimeGraph = new mxGraph();
+		designTimeParent = designTimeGraph.getDefaultParent();
+		designTimeGraphComponent = new mxGraphComponent(designTimeGraph);
+		layout = new mxHierarchicalLayout(designTimeGraph, SwingConstants.NORTH);
+
+		designTimeGraphComponent.setBorder(null);
+		designTimeGraphComponent.setEnabled(false);
+		// graphComponent.setAlignmentY(SwingConstants.BOTTOM);
+		designTimeGraphComponent.getViewport().setBackground(
+				new Color(1, 1, 1, 0f));
+		// add graphComponent to panel
+		designTimePanel.add(designTimeGraphComponent);
+
+		// runtime graph
+		runTimeGraph = new mxGraph();
+		runTimeParent = runTimeGraph.getDefaultParent();
+		runTimeGraphComponent = new mxGraphComponent(runTimeGraph);
+		runtimeLayout = new mxHierarchicalLayout(runTimeGraph,
+				SwingConstants.NORTH);
+
+		runTimeGraphComponent.setBorder(null);
+		runTimeGraphComponent.setEnabled(false);
+		// graphComponent.setAlignmentY(SwingConstants.BOTTOM);
+		runTimeGraphComponent.getViewport().setBackground(
+				new Color(1, 1, 1, 0f));
+		// add graphComponent to panel
+		runTimePanel.add(runTimeGraphComponent);
+
+		this.add(designTimeScrollPane);
+		this.add(Box.createRigidArea(new Dimension(5, 0)));
+		this.add(runTimescrollPane);
 
 		// test for scroll by dragging
 		setAutoscrolls(true);
 
 	}
 
+	/**
+	 * @return
+	 */
+	private JScrollPane hierarchyPanel(JPanel panel) {
+		panel.setLayout(new BorderLayout());
+		panel.setBackground(Color.decode(BACKGROUD_COLOR));
+		panel.setBorder(new LineBorder(Color.decode(BORDER_COLOR)));
+		JScrollPane runTimescrollPane = new JScrollPane(panel,
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		runTimescrollPane.setPreferredSize(new Dimension(900, 700));
+		return runTimescrollPane;
+	}
+
 	public void clear() {
-		mxGraph current = graphComponent.getGraph();
+		mxGraph current = designTimeGraphComponent.getGraph();
 		((mxGraphModel) current.getModel()).clear();
 	}
 
-	public void updateViewPanel(
+	public void updateDesignTimeViewPanel(
 			ArrayListMultimap<String, Map<String, List<String>>> softDependencies) {
 
 		// define edge style
-		Map<String, Object> style = graph.getStylesheet().getDefaultEdgeStyle();
-
-		style.put(mxConstants.STYLE_STARTARROW, mxConstants.ARROW_CLASSIC);
-		style.put(mxConstants.STYLE_ENDARROW, mxConstants.NONE);
-		style.put(mxConstants.STYLE_STROKECOLOR, "#666666");
-		style.put(mxConstants.STYLE_FONTCOLOR, "#000000");
-		style.put(mxConstants.STYLE_STROKEWIDTH, "1");
-		style.put(mxConstants.STYLE_FONTSIZE, "16");
-		style.put(mxConstants.STYLE_VERTICAL_ALIGN, mxConstants.ALIGN_MIDDLE);
-		style.put(mxConstants.STYLE_ALIGN, mxConstants.ALIGN_LEFT);
-		style.put(mxConstants.STYLE_ROUNDED, true);
-		style.put(mxConstants.STYLE_EDGE, mxConstants.EDGESTYLE_ENTITY_RELATION);
-		style.put(mxConstants.STYLE_DASHED, "true");
-		style.put(mxConstants.STYLE_DASH_PATTERN, "10");
-		style.put(mxConstants.STYLE_AUTOSIZE, "true");
-		style.put(mxConstants.STYLE_STROKEWIDTH, "1");
-
-		graph.getModel().beginUpdate();
+		Map<String, Object> style = designTimeGraph.getStylesheet()
+				.getDefaultEdgeStyle();
+		setGraphStyle(style);
+		designTimeGraph.getModel().beginUpdate();
 
 		try {
 			Map<String, Object> vertices = new HashMap<String, Object>();
 			for (String key : softDependencies.keys()) {
-				Object v = graph.insertVertex(parent, null, key, 1, 1, 80, 30,
-						STYLE_VERTEX);
-				graph.updateCellSize(v);
+				Object v = designTimeGraph.insertVertex(designTimeParent, null,
+						key, 1, 1, 80, 30, STYLE_VERTEX);
+				designTimeGraph.updateCellSize(v);
 				vertices.put(key, v);
 			}
 
@@ -119,10 +172,11 @@ public class SystemViewPanel extends JPanel {
 							// System.out.println(key + " -> " + value.get(t)
 							// + " -> " + key1);
 
-							Iterator<Map.Entry<String, Object>> prova = ((Map<String, Object>) vertices)
+							Iterator<Map.Entry<String, Object>> verticesIterator = ((Map<String, Object>) vertices)
 									.entrySet().iterator();
-							while (prova.hasNext()) {
-								Map.Entry<String, Object> pair = prova.next();
+							while (verticesIterator.hasNext()) {
+								Map.Entry<String, Object> pair = verticesIterator
+										.next();
 								Iterator<Map.Entry<String, Object>> prova1 = ((Map<String, Object>) vertices)
 										.entrySet().iterator();
 
@@ -131,14 +185,16 @@ public class SystemViewPanel extends JPanel {
 											.next();
 									if (pair.getKey().equals(key)
 											&& pair1.getKey().equals(key1)) {
-										Object edge = graph.insertEdge(parent,
-												null, value.get(t),
-												pair1.getValue(),
-												pair.getValue(), null);
+										Object edge = designTimeGraph
+												.insertEdge(designTimeParent,
+														null, value.get(t),
+														pair1.getValue(),
+														pair.getValue(), null);
 
 										((mxCell) edge).setStyle(style
 												.toString());
-										graph.updateCellSize((mxCell) edge);
+										designTimeGraph
+												.updateCellSize((mxCell) edge);
 									}
 								}
 							}
@@ -150,12 +206,15 @@ public class SystemViewPanel extends JPanel {
 			}
 
 		} finally {
-			graph.getModel().endUpdate();
+			designTimeGraph.getModel().endUpdate();
 		}
 
-		double widthLayout = graphComponent.getLayoutAreaSize().getWidth();
-		double heightLayout = graphComponent.getLayoutAreaSize().getHeight();
-		graph.getModel().setGeometry(graph.getDefaultParent(),
+		double widthLayout = designTimeGraphComponent.getLayoutAreaSize()
+				.getWidth();
+		double heightLayout = designTimeGraphComponent.getLayoutAreaSize()
+				.getHeight();
+		designTimeGraph.getModel().setGeometry(
+				designTimeGraph.getDefaultParent(),
 				new mxGeometry(100, 100, widthLayout, heightLayout));
 
 		// compactTree che funziona
@@ -165,10 +224,51 @@ public class SystemViewPanel extends JPanel {
 		layout.setIntraCellSpacing(100);
 		layout.setInterRankCellSpacing(100);
 		layout.setInterHierarchySpacing(150);
-		layout.execute(graph.getDefaultParent());
+		layout.execute(designTimeGraph.getDefaultParent());
 
-		graph.getModel().endUpdate();
-		graph.refresh();
+		designTimeGraph.getModel().endUpdate();
+		designTimeGraph.refresh();
+
+		window.refreshWindow();
+	}
+
+	/**
+	 * @param style
+	 */
+	private void setGraphStyle(Map<String, Object> style) {
+		style.put(mxConstants.STYLE_STARTARROW, mxConstants.ARROW_CLASSIC);
+		style.put(mxConstants.STYLE_ENDARROW, mxConstants.NONE);
+		style.put(mxConstants.STYLE_STROKECOLOR, "#666666");
+		style.put(mxConstants.STYLE_FONTCOLOR, "#000000");
+		style.put(mxConstants.STYLE_STROKEWIDTH, "1");
+		style.put(mxConstants.STYLE_FONTSIZE, "16");
+		style.put(mxConstants.STYLE_VERTICAL_ALIGN, mxConstants.ALIGN_MIDDLE);
+		style.put(mxConstants.STYLE_ALIGN, mxConstants.ALIGN_LEFT);
+		style.put(mxConstants.STYLE_ROUNDED, true);
+		style.put(mxConstants.STYLE_EDGE, mxConstants.EDGESTYLE_ENTITY_RELATION);
+		style.put(mxConstants.STYLE_DASHED, "true");
+		style.put(mxConstants.STYLE_DASH_PATTERN, "10");
+		style.put(mxConstants.STYLE_AUTOSIZE, "true");
+		style.put(mxConstants.STYLE_STROKEWIDTH, "1");
+	}
+
+	public void updateRunTimeViewPanel(
+			ArrayListMultimap<DomainObjectInstance, DomainObjectInstance> strongDependencies) {
+		// define edge style
+		Map<String, Object> style = runTimeGraph.getStylesheet()
+				.getDefaultEdgeStyle();
+		setGraphStyle(style);
+		runTimeGraph.getModel().beginUpdate();
+
+		// CONSTRUCT THE GRAPH
+
+		runtimeLayout.setIntraCellSpacing(100);
+		runtimeLayout.setInterRankCellSpacing(100);
+		runtimeLayout.setInterHierarchySpacing(150);
+		runtimeLayout.execute(runTimeGraph.getDefaultParent());
+
+		runTimeGraph.getModel().endUpdate();
+		runTimeGraph.refresh();
 
 		window.refreshWindow();
 	}

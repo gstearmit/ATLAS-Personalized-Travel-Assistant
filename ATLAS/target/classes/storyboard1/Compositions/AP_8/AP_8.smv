@@ -45,8 +45,8 @@ VAR DataViewer: {VIEWER_PATTERN_DEFINED, DATA_RECEIVED, INITIAL};
 ASSIGN
 next(DataViewer) :=
 case
-(DataViewer = DATA_RECEIVED & output = service12_DVM_DataPatternResponse): VIEWER_PATTERN_DEFINED;
 (DataViewer = INITIAL & input = service12_DVM_DataPatternRequest): DATA_RECEIVED;
+(DataViewer = DATA_RECEIVED & output = service12_DVM_DataPatternResponse): VIEWER_PATTERN_DEFINED;
 1:DataViewer;
 esac;
 -----------------------------------

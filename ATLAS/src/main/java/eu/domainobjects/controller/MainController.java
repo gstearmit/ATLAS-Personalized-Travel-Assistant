@@ -97,16 +97,16 @@ public class MainController {
 	private MainWindow window;
 	private ProcessEngineFacade processEngineFacade;
 
-	private Map<String, UserData> userData = new HashMap<String, UserData>();
+	private Map<String, UserData> userData = new HashMap<>();
 
-	private Map<String, List<ServiceDiagram>> doServiceDiagrams = new HashMap<String, List<ServiceDiagram>>();
-	private Map<String, List<ObjectDiagram>> doKnowledgeDiagrams = new HashMap<String, List<ObjectDiagram>>();
+	private Map<String, List<ServiceDiagram>> doServiceDiagrams = new HashMap<>();
+	private Map<String, List<ObjectDiagram>> doKnowledgeDiagrams = new HashMap<>();
 
 	private DoiBean current;
 
-	private List<ExternalEvent> externalEvents = new ArrayList<ExternalEvent>();
+	private List<ExternalEvent> externalEvents = new ArrayList<>();
 
-	private Map<String, Integer> monitorSelectedMap = new HashMap<String, Integer>();
+	private Map<String, Integer> monitorSelectedMap = new HashMap<>();
 
 	private static Parser parser = new Parser();
 	private String currentSelectedDomainObjectName = new String();
@@ -210,7 +210,7 @@ public class MainController {
 
 		try {
 
-			String botData = this.getBotParameters();
+			String botData = MainController.getBotParameters();
 			String[] fields = botData.split(";");
 			String name = fields[0];
 			String token = fields[1];
@@ -220,9 +220,6 @@ public class MainController {
 			String botName = nameValues[1];
 			String botToken = tokenValues[1];
 
-			// bot = new TravelAssistantBot("TestTravelAssistantBot",
-			// "348692232:AAGyApErXx36PFRisENTClY1jEsYgZcvbTI", false,
-			// false, false, false, aListner, event);
 
 			bot = new TravelAssistantBot(botName, botToken, false, false,
 					false, false, aListner, event);
@@ -234,7 +231,7 @@ public class MainController {
 
 		Long ChatId = bot.getCurrentID();
 
-		ArrayList<TripAlternativeRome2Rio> alternatives = new ArrayList<TripAlternativeRome2Rio>();
+		ArrayList<TripAlternativeRome2Rio> alternatives = new ArrayList<>();
 
 		processEngineFacade.addExecutableHandler(
 				"R2R_ServiceCall",
@@ -514,7 +511,7 @@ public class MainController {
 	}
 
 	private void updateDomainPropertiesModel(String modelName) {
-		List<String> properties = new ArrayList<String>();
+		List<String> properties = new ArrayList<>();
 
 		DomainObject current = null;
 		DomainObjectDefinition currentDod = null;
@@ -552,7 +549,7 @@ public class MainController {
 				}
 			}
 		}
-		List<ObjectDiagram> knowledge = new ArrayList<ObjectDiagram>();
+		List<ObjectDiagram> knowledge = new ArrayList<>();
 
 		if (!doKnowledgeDiagrams.containsKey(modelName)) {
 			for (DomainProperty dp : currentDod.getProperties()) {
@@ -576,7 +573,7 @@ public class MainController {
 	private void updateFragmentsModels(String modelName)
 			throws InvalidServiceInitialStateException,
 			InvalidServiceTransitionException, ServiceDuplicateActionException {
-		List<String> fragmentsList = new ArrayList<String>();
+		List<String> fragmentsList = new ArrayList<>();
 
 		DomainObject current = null;
 		DomainObjectDefinition currentDod = null;
@@ -608,7 +605,7 @@ public class MainController {
 	}
 
 	public void updateFragmentsModelsTab(String fragmentName) {
-		List<ServiceDiagram> services = new ArrayList<ServiceDiagram>();
+		List<ServiceDiagram> services = new ArrayList<>();
 		String filePath = FRAGMENTS_DIR.concat(fragmentName).concat(".xml");
 
 		if (doServiceDiagrams.containsKey(currentSelectedDomainObjectName)) {
@@ -633,7 +630,7 @@ public class MainController {
 		String filePath = DOMAIN_KNOWLEDGE_DIR.concat(propertyName).concat(
 				".xml");
 
-		List<ObjectDiagram> knowledge = new ArrayList<ObjectDiagram>();
+		List<ObjectDiagram> knowledge = new ArrayList<>();
 
 		if (doKnowledgeDiagrams.containsKey(currentSelectedDomainObjectName)) {
 			knowledge = doKnowledgeDiagrams
@@ -665,7 +662,7 @@ public class MainController {
 	// }
 
 	private void updateListDomainObjectsEntities() {
-		List<String> response = new ArrayList<String>();
+		List<String> response = new ArrayList<>();
 		for (DomainObjectDefinition dod : processEngineFacade
 				.getDomainObjectDefinitions()) {
 			if (!response.contains(dod.getDomainObject().getName())) {
@@ -693,7 +690,7 @@ public class MainController {
 				.getDomainObjectInstanceForProcess(processEngineFacade
 						.getProcessDiagram(db));
 		if (doi != null) {
-			List<String> response = new ArrayList<String>();
+			List<String> response = new ArrayList<>();
 			response = getKnowledgeValues(response, doi.getInternalKnowledge());
 			response = getKnowledgeValues(response, doi.getExternalKnowledge());
 			window.updateEntityKnowledge(response);
@@ -718,7 +715,7 @@ public class MainController {
 		if (db2 == null) {
 			return;
 		}
-		List<String> toDisplay = new ArrayList<String>();
+		List<String> toDisplay = new ArrayList<>();
 		List<DoiBean> instances = getProcessEngineFacade()
 				.getDomainObjectInstances();
 		if (instances == null) {
@@ -735,7 +732,7 @@ public class MainController {
 		}
 		// return all instances of same type (f.e. all UMS instances using
 		// current type
-		List<DoiBean> result = new ArrayList<DoiBean>();
+		List<DoiBean> result = new ArrayList<>();
 		for (DoiBean db : instances) {
 			ProcessDiagram p = processEngineFacade.getProcessDiagram(db);
 			if (db.getName().startsWith(type) && p != null) { // && !p.isEnded()
@@ -839,13 +836,13 @@ public class MainController {
 		if (db == null) {
 			return;
 		}
-		List<String> toDisplay = new ArrayList<String>();
+		List<String> toDisplay = new ArrayList<>();
 		DomainObjectInstance doi = processEngineFacade
 				.getDomainObjectInstanceForProcess(processEngineFacade
 						.getProcessDiagram(db));
 		if (doi != null) {
 			if (doi.getState() != null) {
-				List<VariableType> state = new ArrayList<VariableType>();
+				List<VariableType> state = new ArrayList<>();
 				state = doi.getState().getStateVariable();
 				for (VariableType var : state) {
 					Element e = (Element) (var.getContent());
@@ -874,7 +871,7 @@ public class MainController {
 		if (db == null) {
 			return;
 		}
-		List<String> response = new ArrayList<String>();
+		List<String> response = new ArrayList<>();
 		ProcessDiagram process = processEngineFacade.getProcessDiagram(db);
 		if (process != null) {
 			// using correlated process, get origin of this correlation. So for
@@ -942,7 +939,7 @@ public class MainController {
 	 *         if there is no current process
 	 */
 	public ProcessDiagram getCurrentRefinedProcessDiagram() {
-		List<ProcessActivity> activityList = new ArrayList<ProcessActivity>();
+		List<ProcessActivity> activityList = new ArrayList<>();
 		ProcessDiagram pd = getCurrentProcess();
 		if (pd == null) {
 			return new ProcessDiagram();
@@ -1160,11 +1157,11 @@ public class MainController {
 		return result;
 	}
 
-	public void updateHierarchyTab(
+	public void updateDesignTimeHierarchyTab(
 			ArrayListMultimap<String, Map<String, List<String>>> softDependencies) {
 
 		((SystemViewPanel) window.getSystemViewPanel())
-				.updateViewPanel(softDependencies);
+				.updateDesignTimeViewPanel(softDependencies);
 
 	}
 

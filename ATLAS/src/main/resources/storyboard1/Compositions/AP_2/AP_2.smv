@@ -28,9 +28,9 @@ ASSIGN
 next(service4) :=
 case
 (service4 = ST1 & output = service4_DVM_DataPatternResponse): ST2;
-(service4 = ST0 & input = service4_DVM_DataPatternRequest): ST1;
 (service4 = ST1 & input = service4_RESET): ST0;
 (service4 = ST2 & input = service4_RESET): ST0;
+(service4 = ST0 & input = service4_DVM_DataPatternRequest): ST1;
 1:service4;
 esac;
 TRANS ( output = service4_DVM_DataPatternResponse) -> (service4 = ST1)

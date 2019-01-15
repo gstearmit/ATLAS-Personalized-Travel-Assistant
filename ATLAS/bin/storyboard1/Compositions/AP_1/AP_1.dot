@@ -1,8 +1,0 @@
-digraph plan_fsm {
-ratio="1.3";
-margin="0.2";
-size="8.0,11.4";
-"0" -> "1" [style=dotted label="dn_main.input = service3_R2R_PlanRequest &\n"]
-"1" -> "2" [label="dn_main.output = service3_R2R_PlanResponse"]
-}
-

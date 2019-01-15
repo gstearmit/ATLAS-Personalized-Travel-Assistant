@@ -2,7 +2,7 @@ digraph plan_fsm {
 ratio="1.3";
 margin="0.2";
 size="8.0,11.4";
-"0" -> "1" [style=dotted label="dn_main.input = service7_BBC_PassageRequest &\n"]
-"1" -> "2" [label="dn_main.output = service7_BBC_PassageResponse"]
+"0" -> "1" [style=dotted label="dn_main.input = service7_STM_JourneyRequest &\n"]
+"1" -> "2" [label="dn_main.output = service7_STM_JourneyResponse"]
 }
 

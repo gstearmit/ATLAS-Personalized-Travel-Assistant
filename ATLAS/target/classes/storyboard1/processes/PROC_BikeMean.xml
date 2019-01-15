@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:process name="PROC_BikeMean" xmlns:tns="http://das.fbk.eu/Process"
+	xmlns:tns1="http://das.fbk.eu/Annotation" xmlns:tns2="http://das.fbk.eu/DataType"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://das.fbk.eu/Process ../../../schema/allow-ensembles/Process.xsd ">
+
+	<tns:receive name="BIM_PlanRequest">
+		<tns:precondition>
+			<tns1:point>
+				<tns1:domainProperty dp_name="BikeJourney">
+					<tns1:state>INITIAL</tns1:state>
+				</tns1:domainProperty>
+			</tns1:point>
+		</tns:precondition>
+	</tns:receive>
+
+	<tns:concrete name="BIM_ServiceCall">
+		<tns:effect>
+			<tns1:event dpName="BikeJourney" eventName="bike0"></tns1:event>
+		</tns:effect>
+	</tns:concrete>
+	
+	<tns:concrete name="BIM_ServiceCall1">
+	<tns:effect>
+			<tns1:event dpName="BikeJourney" eventName="bike1"></tns1:event>
+		</tns:effect>
+	</tns:concrete>
+	
+	<tns:concrete name="BIM_ServiceCall2">
+	<tns:effect>
+			<tns1:event dpName="BikeJourney" eventName="bike2"></tns1:event>
+		</tns:effect>
+	</tns:concrete>
+
+	<tns:invoke name="BIM_PlanResponse">
+		<tns:effect>
+			<tns1:event dpName="BikeJourney" eventName="bike3"></tns1:event>
+		</tns:effect>
+	</tns:invoke>
+	
+	<tns:receive name="BIM_BookRequest">
+		<tns:precondition>
+			<tns1:point>
+				<tns1:domainProperty dp_name="BikeJourney">
+					<tns1:state>BIKE3</tns1:state>
+				</tns1:domainProperty>
+			</tns1:point>
+		</tns:precondition>
+	</tns:receive>
+	
+	<tns:concrete name="BIM_ServiceCall3">
+	<tns:effect>
+			<tns1:event dpName="BikeJourney" eventName="bike4"></tns1:event>
+		</tns:effect>
+	</tns:concrete>
+	
+	<tns:concrete name="BIM_ServiceCall4">
+	<tns:effect>
+			<tns1:event dpName="BikeJourney" eventName="bike5"></tns1:event>
+		</tns:effect>
+	</tns:concrete>
+	
+	<tns:concrete name="BIM_ServiceCall5">
+	<tns:effect>
+			<tns1:event dpName="BikeJourney" eventName="bike6"></tns1:event>
+		</tns:effect>
+	</tns:concrete>
+	
+	<tns:invoke name="BIM_BookResponse">
+		<tns:effect>
+			<tns1:event dpName="BikeJourney" eventName="bike7"></tns1:event>
+		</tns:effect>
+	</tns:invoke>	
+	
+	<tns:receive name="BIM_TakeRequest">
+		<tns:precondition>
+			<tns1:point>
+				<tns1:domainProperty dp_name="BikeJourney">
+					<tns1:state>BIKE7</tns1:state>
+				</tns1:domainProperty>
+			</tns1:point>
+		</tns:precondition>
+	</tns:receive>
+
+	<tns:concrete name="BIM_ServiceCall6">
+		<tns:effect>
+			<tns1:event dpName="BikeJourney" eventName="bike8"></tns1:event>
+		</tns:effect>
+	</tns:concrete>
+	
+	<tns:concrete name="BIM_ServiceCall7">
+	<tns:effect>
+			<tns1:event dpName="BikeJourney" eventName="bike9"></tns1:event>
+		</tns:effect>
+	</tns:concrete>
+	
+	<tns:concrete name="BIM_ServiceCall8">
+	<tns:effect>
+			<tns1:event dpName="BikeJourney" eventName="bike10"></tns1:event>
+		</tns:effect>
+	</tns:concrete>
+
+	<tns:invoke name="BIM_TakeResponse">
+		<tns:effect>
+			<tns1:event dpName="BikeJourney" eventName="bike11"></tns1:event>
+		</tns:effect>
+	</tns:invoke>
+	
+</tns:process>

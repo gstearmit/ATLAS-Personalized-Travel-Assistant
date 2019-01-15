@@ -27,10 +27,10 @@ VAR service8: {ST2, ST1, ST0};
 ASSIGN
 next(service8) :=
 case
-(service8 = ST0 & input = service8_DVM_DataPatternRequest): ST1;
 (service8 = ST1 & output = service8_DVM_DataPatternResponse): ST2;
-(service8 = ST2 & input = service8_RESET): ST0;
 (service8 = ST1 & input = service8_RESET): ST0;
+(service8 = ST2 & input = service8_RESET): ST0;
+(service8 = ST0 & input = service8_DVM_DataPatternRequest): ST1;
 1:service8;
 esac;
 TRANS ( output = service8_DVM_DataPatternResponse) -> (service8 = ST1)
@@ -45,8 +45,8 @@ VAR DataViewer: {VIEWER_PATTERN_DEFINED, DATA_RECEIVED, INITIAL};
 ASSIGN
 next(DataViewer) :=
 case
-(DataViewer = DATA_RECEIVED & output = service8_DVM_DataPatternResponse): VIEWER_PATTERN_DEFINED;
 (DataViewer = INITIAL & input = service8_DVM_DataPatternRequest): DATA_RECEIVED;
+(DataViewer = DATA_RECEIVED & output = service8_DVM_DataPatternResponse): VIEWER_PATTERN_DEFINED;
 1:DataViewer;
 esac;
 -----------------------------------

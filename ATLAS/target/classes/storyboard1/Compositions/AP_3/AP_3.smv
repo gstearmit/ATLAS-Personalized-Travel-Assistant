@@ -27,34 +27,34 @@ VAR service5: {ST14, ST12, ST13, ST10, ST11, ST0, ST2, ST1, ST4, ST3, ST6, ST5, 
 ASSIGN
 next(service5) :=
 case
+(service5 = ST7 & output = service5_TA_PlanResponse): ST8;
+(service5 = ST2 & output = service5_TA_UseCurrentLocation): ST3;
+(service5 = ST3 & input = service5_RESET): ST0;
+(service5 = ST4 & input = service5_RESET): ST0;
+(service5 = ST1 & input = service5_RESET): ST0;
+(service5 = ST6 & input = service5_RESET): ST0;
+(service5 = ST0 & input = service5_TA_StartInteraction): ST1;
+(service5 = ST5 & input = service5_RESET): ST0;
+(service5 = ST10 & output = service5_TA_ChooseAlternative): ST11;
+(service5 = ST1 & output = service5_TA_StartChatbot): ST2;
 (service5 = ST3 & output = service5_TA_InsertSource): ST4;
 (service5 = ST2 & input = service5_RESET): ST0;
 (service5 = ST8 & input = service5_RESET): ST0;
-(service5 = ST6 & input = service5_TA_PlanRequest): ST7;
-(service5 = ST8 & input = service5_TA_DefineDataViewerPattern): ST9;
-(service5 = ST7 & input = service5_RESET): ST0;
-(service5 = ST9 & input = service5_RESET): ST0;
-(service5 = ST12 & input = service5_RESET): ST0;
-(service5 = ST13 & input = service5_RESET): ST0;
-(service5 = ST2 & output = service5_TA_UseCurrentLocation): ST3;
-(service5 = ST10 & output = service5_TA_ChooseAlternative): ST11;
 (service5 = ST14 & input = service5_RESET): ST0;
-(service5 = ST12 & input = service5_TA_DefineJourneyLegs): ST13;
 (service5 = ST5 & output = service5_TA_InsertOptionalData): ST6;
-(service5 = ST1 & output = service5_TA_StartChatbot): ST2;
-(service5 = ST3 & input = service5_RESET): ST0;
-(service5 = ST9 & output = service5_TA_ShowResults): ST10;
-(service5 = ST5 & input = service5_RESET): ST0;
-(service5 = ST4 & output = service5_TA_InsertDestination): ST5;
-(service5 = ST7 & output = service5_TA_PlanResponse): ST8;
-(service5 = ST1 & input = service5_RESET): ST0;
-(service5 = ST11 & input = service5_TA_ProvideChoice): ST12;
 (service5 = ST11 & input = service5_RESET): ST0;
-(service5 = ST6 & input = service5_RESET): ST0;
-(service5 = ST4 & input = service5_RESET): ST0;
+(service5 = ST7 & input = service5_RESET): ST0;
+(service5 = ST8 & input = service5_TA_DefineDataViewerPattern): ST9;
 (service5 = ST13 & output = service5_TA_AssistantPlanningComplete): ST14;
-(service5 = ST0 & input = service5_TA_StartInteraction): ST1;
+(service5 = ST12 & input = service5_TA_DefineJourneyLegs): ST13;
+(service5 = ST13 & input = service5_RESET): ST0;
+(service5 = ST9 & input = service5_RESET): ST0;
+(service5 = ST4 & output = service5_TA_InsertDestination): ST5;
+(service5 = ST11 & input = service5_TA_ProvideChoice): ST12;
+(service5 = ST6 & input = service5_TA_PlanRequest): ST7;
+(service5 = ST12 & input = service5_RESET): ST0;
 (service5 = ST10 & input = service5_RESET): ST0;
+(service5 = ST9 & output = service5_TA_ShowResults): ST10;
 1:service5;
 esac;
 TRANS ( input = service5_TA_ProvideChoice) -> (service5 = ST11)
@@ -78,18 +78,18 @@ VAR service6: {ST2, ST1, ST4, ST3, ST6, ST5, ST0};
 ASSIGN
 next(service6) :=
 case
-(service6 = ST5 & input = service6_RESET): ST0;
-(service6 = ST3 & input = service6_TA_OrganizeData): ST4;
-(service6 = ST4 & input = service6_RESET): ST0;
-(service6 = ST3 & input = service6_RESET): ST0;
-(service6 = ST6 & input = service6_RESET): ST0;
-(service6 = ST1 & input = service6_TA_IdentifyLeg): ST2;
-(service6 = ST5 & input = service6_TA_EndLegHandling): ST6;
-(service6 = ST0 & input = service6_TA_StartLegHandling): ST1;
-(service6 = ST1 & input = service6_RESET): ST0;
-(service6 = ST4 & output = service6_TA_ShowLegResults): ST5;
 (service6 = ST2 & output = service6_TA_HandleLegResults): ST3;
+(service6 = ST1 & input = service6_TA_IdentifyLeg): ST2;
+(service6 = ST6 & input = service6_RESET): ST0;
+(service6 = ST4 & output = service6_TA_ShowLegResults): ST5;
+(service6 = ST5 & input = service6_RESET): ST0;
+(service6 = ST3 & input = service6_RESET): ST0;
+(service6 = ST0 & input = service6_TA_StartLegHandling): ST1;
+(service6 = ST5 & input = service6_TA_EndLegHandling): ST6;
 (service6 = ST2 & input = service6_RESET): ST0;
+(service6 = ST4 & input = service6_RESET): ST0;
+(service6 = ST3 & input = service6_TA_OrganizeData): ST4;
+(service6 = ST1 & input = service6_RESET): ST0;
 1:service6;
 esac;
 TRANS ( output = service6_TA_ShowLegResults) -> (service6 = ST4)
@@ -117,14 +117,14 @@ VAR TravelAssistant: {JOURNEY_PLANNED, PLAN_ALTERNATIVES_SENT, USER_CHOICE_RECEI
 ASSIGN
 next(TravelAssistant) :=
 case
-(TravelAssistant = JOURNEY_PLANNED & output = service5_TA_AssistantPlanningComplete): ASSISTANCE_COMPLETE;
-(TravelAssistant = REQUIRED_INPUT_RECEIVED & output = service5_TA_PlanResponse): JOURNEY_PLAN_FOUND;
 (TravelAssistant = JOURNEY_PLAN_FOUND & output = service5_TA_ShowResults): PLAN_ALTERNATIVES_SENT;
 (TravelAssistant = USER_CHOICE_RECEIVED & input = service5_TA_ProvideChoice): PLAN_REFINED;
-(TravelAssistant = PLAN_REFINED & input = service5_TA_DefineJourneyLegs): JOURNEY_PLANNED;
-(TravelAssistant = PLAN_ALTERNATIVES_SENT & output = service5_TA_ChooseAlternative): USER_CHOICE_RECEIVED;
 (TravelAssistant = JOURNEY_PLANNED & input = service6_TA_EndLegHandling): LEG_REFINED;
+(TravelAssistant = PLAN_REFINED & input = service5_TA_DefineJourneyLegs): JOURNEY_PLANNED;
 (TravelAssistant = INITIAL & input = service5_TA_PlanRequest): REQUIRED_INPUT_RECEIVED;
+(TravelAssistant = JOURNEY_PLANNED & output = service5_TA_AssistantPlanningComplete): ASSISTANCE_COMPLETE;
+(TravelAssistant = REQUIRED_INPUT_RECEIVED & output = service5_TA_PlanResponse): JOURNEY_PLAN_FOUND;
+(TravelAssistant = PLAN_ALTERNATIVES_SENT & output = service5_TA_ChooseAlternative): USER_CHOICE_RECEIVED;
 1:TravelAssistant;
 esac;
 -----------------------------------

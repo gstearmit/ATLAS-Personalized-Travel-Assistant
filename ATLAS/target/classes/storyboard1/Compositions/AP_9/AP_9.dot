@@ -1,0 +1,12 @@
+digraph plan_fsm {
+ratio="1.3";
+margin="0.2";
+size="8.0,11.4";
+"0" -> "1" [style=dotted label="dn_main.input = service14_TA_StartLegHandling &\n"]
+"1" -> "2" [style=dotted label="dn_main.input = service14_TA_IdentifyLeg &\n"]
+"2" -> "3" [label="dn_main.output = service14_TA_HandleLegResults"]
+"3" -> "4" [style=dotted label="dn_main.input = service14_TA_OrganizeData &\n"]
+"4" -> "5" [label="dn_main.output = service14_TA_ShowLegResults"]
+"5" -> "6" [style=dotted label="dn_main.input = service14_TA_EndLegHandling &\n"]
+}
+

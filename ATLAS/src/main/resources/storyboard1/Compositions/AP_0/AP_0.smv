@@ -27,34 +27,34 @@ VAR service1: {ST14, ST12, ST13, ST10, ST11, ST0, ST2, ST1, ST4, ST3, ST6, ST5, 
 ASSIGN
 next(service1) :=
 case
-(service1 = ST3 & input = service1_RESET): ST0;
-(service1 = ST7 & input = service1_RESET): ST0;
-(service1 = ST1 & input = service1_RESET): ST0;
-(service1 = ST4 & input = service1_RESET): ST0;
-(service1 = ST13 & output = service1_TA_AssistantPlanningComplete): ST14;
-(service1 = ST11 & input = service1_RESET): ST0;
-(service1 = ST12 & input = service1_TA_DefineJourneyLegs): ST13;
-(service1 = ST2 & input = service1_RESET): ST0;
-(service1 = ST5 & input = service1_RESET): ST0;
-(service1 = ST9 & output = service1_TA_ShowResults): ST10;
-(service1 = ST8 & input = service1_RESET): ST0;
-(service1 = ST3 & output = service1_TA_InsertSource): ST4;
 (service1 = ST5 & output = service1_TA_InsertOptionalData): ST6;
-(service1 = ST2 & output = service1_TA_UseCurrentLocation): ST3;
-(service1 = ST14 & input = service1_RESET): ST0;
-(service1 = ST8 & input = service1_TA_DefineDataViewerPattern): ST9;
-(service1 = ST6 & input = service1_TA_PlanRequest): ST7;
-(service1 = ST7 & output = service1_TA_PlanResponse): ST8;
-(service1 = ST10 & output = service1_TA_ChooseAlternative): ST11;
-(service1 = ST11 & input = service1_TA_ProvideChoice): ST12;
-(service1 = ST9 & input = service1_RESET): ST0;
-(service1 = ST12 & input = service1_RESET): ST0;
 (service1 = ST13 & input = service1_RESET): ST0;
-(service1 = ST4 & output = service1_TA_InsertDestination): ST5;
-(service1 = ST6 & input = service1_RESET): ST0;
-(service1 = ST1 & output = service1_TA_StartChatbot): ST2;
 (service1 = ST0 & input = service1_TA_StartInteraction): ST1;
+(service1 = ST8 & input = service1_TA_DefineDataViewerPattern): ST9;
+(service1 = ST4 & input = service1_RESET): ST0;
+(service1 = ST9 & input = service1_RESET): ST0;
+(service1 = ST3 & output = service1_TA_InsertSource): ST4;
+(service1 = ST1 & output = service1_TA_StartChatbot): ST2;
+(service1 = ST9 & output = service1_TA_ShowResults): ST10;
+(service1 = ST6 & input = service1_TA_PlanRequest): ST7;
+(service1 = ST1 & input = service1_RESET): ST0;
+(service1 = ST10 & output = service1_TA_ChooseAlternative): ST11;
+(service1 = ST12 & input = service1_TA_DefineJourneyLegs): ST13;
+(service1 = ST6 & input = service1_RESET): ST0;
+(service1 = ST3 & input = service1_RESET): ST0;
+(service1 = ST5 & input = service1_RESET): ST0;
+(service1 = ST8 & input = service1_RESET): ST0;
 (service1 = ST10 & input = service1_RESET): ST0;
+(service1 = ST4 & output = service1_TA_InsertDestination): ST5;
+(service1 = ST7 & output = service1_TA_PlanResponse): ST8;
+(service1 = ST14 & input = service1_RESET): ST0;
+(service1 = ST11 & input = service1_RESET): ST0;
+(service1 = ST2 & output = service1_TA_UseCurrentLocation): ST3;
+(service1 = ST7 & input = service1_RESET): ST0;
+(service1 = ST12 & input = service1_RESET): ST0;
+(service1 = ST2 & input = service1_RESET): ST0;
+(service1 = ST11 & input = service1_TA_ProvideChoice): ST12;
+(service1 = ST13 & output = service1_TA_AssistantPlanningComplete): ST14;
 1:service1;
 esac;
 TRANS ( input = service1_TA_ProvideChoice) -> (service1 = ST11)
@@ -78,17 +78,17 @@ VAR service2: {ST2, ST1, ST4, ST3, ST6, ST5, ST0};
 ASSIGN
 next(service2) :=
 case
-(service2 = ST2 & input = service2_RESET): ST0;
-(service2 = ST6 & input = service2_RESET): ST0;
-(service2 = ST5 & input = service2_RESET): ST0;
-(service2 = ST3 & input = service2_TA_OrganizeData): ST4;
-(service2 = ST4 & output = service2_TA_ShowLegResults): ST5;
 (service2 = ST2 & output = service2_TA_HandleLegResults): ST3;
-(service2 = ST3 & input = service2_RESET): ST0;
-(service2 = ST0 & input = service2_TA_StartLegHandling): ST1;
-(service2 = ST5 & input = service2_TA_EndLegHandling): ST6;
+(service2 = ST4 & output = service2_TA_ShowLegResults): ST5;
 (service2 = ST1 & input = service2_TA_IdentifyLeg): ST2;
+(service2 = ST3 & input = service2_RESET): ST0;
+(service2 = ST3 & input = service2_TA_OrganizeData): ST4;
+(service2 = ST0 & input = service2_TA_StartLegHandling): ST1;
+(service2 = ST6 & input = service2_RESET): ST0;
 (service2 = ST1 & input = service2_RESET): ST0;
+(service2 = ST2 & input = service2_RESET): ST0;
+(service2 = ST5 & input = service2_TA_EndLegHandling): ST6;
+(service2 = ST5 & input = service2_RESET): ST0;
 (service2 = ST4 & input = service2_RESET): ST0;
 1:service2;
 esac;
@@ -117,14 +117,14 @@ VAR TravelAssistant: {JOURNEY_PLANNED, PLAN_ALTERNATIVES_SENT, USER_CHOICE_RECEI
 ASSIGN
 next(TravelAssistant) :=
 case
-(TravelAssistant = INITIAL & input = service1_TA_PlanRequest): REQUIRED_INPUT_RECEIVED;
-(TravelAssistant = USER_CHOICE_RECEIVED & input = service1_TA_ProvideChoice): PLAN_REFINED;
-(TravelAssistant = PLAN_REFINED & input = service1_TA_DefineJourneyLegs): JOURNEY_PLANNED;
-(TravelAssistant = PLAN_ALTERNATIVES_SENT & output = service1_TA_ChooseAlternative): USER_CHOICE_RECEIVED;
-(TravelAssistant = JOURNEY_PLANNED & input = service2_TA_EndLegHandling): LEG_REFINED;
 (TravelAssistant = REQUIRED_INPUT_RECEIVED & output = service1_TA_PlanResponse): JOURNEY_PLAN_FOUND;
-(TravelAssistant = JOURNEY_PLAN_FOUND & output = service1_TA_ShowResults): PLAN_ALTERNATIVES_SENT;
+(TravelAssistant = USER_CHOICE_RECEIVED & input = service1_TA_ProvideChoice): PLAN_REFINED;
+(TravelAssistant = PLAN_ALTERNATIVES_SENT & output = service1_TA_ChooseAlternative): USER_CHOICE_RECEIVED;
 (TravelAssistant = JOURNEY_PLANNED & output = service1_TA_AssistantPlanningComplete): ASSISTANCE_COMPLETE;
+(TravelAssistant = JOURNEY_PLAN_FOUND & output = service1_TA_ShowResults): PLAN_ALTERNATIVES_SENT;
+(TravelAssistant = JOURNEY_PLANNED & input = service2_TA_EndLegHandling): LEG_REFINED;
+(TravelAssistant = INITIAL & input = service1_TA_PlanRequest): REQUIRED_INPUT_RECEIVED;
+(TravelAssistant = PLAN_REFINED & input = service1_TA_DefineJourneyLegs): JOURNEY_PLANNED;
 1:TravelAssistant;
 esac;
 -----------------------------------
@@ -143,7 +143,7 @@ TRANS (1-(input = UNDEF)) + (1-(output = UNDEF)) = 1
 ---------------------------------------
 DEFINE SYNC0 := ((TravelAssistant in {ASSISTANCE_COMPLETE}));
 --	 Synchronicity enforcement
-TRANS (service1 in {ST2, ST1, ST4, ST3, ST13, ST5, ST10, ST7, ST9}) -> (next(service1) != service1)
+TRANS (service1 in {ST2, ST1, ST4, ST3, ST5, ST13, ST10, ST7, ST9}) -> (next(service1) != service1)
 TRANS (service2 in {ST2, ST4}) -> (next(service2) != service2)
 -------------------------------
 --   C O N T R O L L E R S   --

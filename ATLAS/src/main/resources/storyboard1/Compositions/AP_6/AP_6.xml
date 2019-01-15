@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<composition xmlns="http://das.fbk.eu/Composition" xmlns:ns2="http://das.fbk.eu/Annotation" xmlns:ns3="http://das.fbk.eu/Fragment" xmlns:ns4="http://das.fbk.eu/DataType" xmlns:ns5="http://das.fbk.eu/DomainObject" xmlns:ns6="http://das.fbk.eu/Process" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://soa.fbk.eu/Composition null/Schemata/Composition.xsd">
+    <domainProperties>
+        <domainProperty oid="DataViewer" type="DataViewer"/>
+        <domainProperty oid="TravelAssistant" type="TravelAssistant"/>
+    </domainProperties>
+    <fragments>
+        <fragment sid="service9" type="TA_planAssistant">
+            <assignment o_name="DataViewer" oid="DataViewer"/>
+            <assignment o_name="TravelAssistant" oid="TravelAssistant"/>
+        </fragment>
+        <fragment sid="service10" type="TA_refineLeg">
+            <assignment o_name="DataViewer" oid="DataViewer"/>
+            <assignment o_name="TravelAssistant" oid="TravelAssistant"/>
+        </fragment>
+    </fragments>
+    <synchronization>
+        <point priority="0">
+            <domainProperty oid="TravelAssistant">
+                <state>LEG_REFINED</state>
+            </domainProperty>
+        </point>
+    </synchronization>
+    <runtime>
+        <domainProperties>
+            <domainProperty oid="DataViewer">VIEWER_PATTERN_DEFINED</domainProperty>
+            <domainProperty oid="TravelAssistant">JOURNEY_PLANNED</domainProperty>
+        </domainProperties>
+        <fragments>
+            <fragment sid="service9">ST0</fragment>
+            <fragment sid="service10">ST0</fragment>
+        </fragments>
+    </runtime>
+</composition>

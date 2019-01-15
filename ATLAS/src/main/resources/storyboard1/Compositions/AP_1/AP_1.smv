@@ -27,10 +27,10 @@ VAR service3: {ST2, ST1, ST0};
 ASSIGN
 next(service3) :=
 case
-(service3 = ST2 & input = service3_RESET): ST0;
-(service3 = ST1 & input = service3_RESET): ST0;
 (service3 = ST1 & output = service3_R2R_PlanResponse): ST2;
+(service3 = ST2 & input = service3_RESET): ST0;
 (service3 = ST0 & input = service3_R2R_PlanRequest): ST1;
+(service3 = ST1 & input = service3_RESET): ST0;
 1:service3;
 esac;
 TRANS ( input = service3_R2R_PlanRequest) -> (service3 = ST0)

@@ -157,7 +157,8 @@ public class ProcessEngineFacade {
 		Parser parser = new Parser();
 
 		for (DomainObjectDefinition domainObjectDef : scenarioDefinitions) {
-			// prendi dod, parsalo e leggi knowledge e popola hashmap
+			// take the dod, parse it and read the knowledge and populate the
+			// hashmap
 			String internalPropertyName = new String();
 			Map<String, List<String>> doKnowledge = new HashMap<String, List<String>>();
 			List<String> externalKnowledge = new ArrayList<String>();
@@ -182,7 +183,7 @@ public class ProcessEngineFacade {
 			softDependencies.put(domainObjectDef.getDomainObject().getName(),
 					doKnowledge);
 		}
-		controller.updateHierarchyTab(softDependencies);
+		controller.updateDesignTimeHierarchyTab(softDependencies);
 
 		// for (String s : softDependencies.keys()) {
 		// List map = softDependencies.get(s);

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:process name="PROC_TestTransportMean" xmlns:tns="http://das.fbk.eu/Process"
+	xmlns:tns1="http://das.fbk.eu/Annotation" xmlns:tns2="http://das.fbk.eu/DataType"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://das.fbk.eu/Process ../../../schema/allow-ensembles/Process.xsd ">
+
+	<tns:receive name="TTM_TestRequest">
+		<tns:precondition>
+			<tns1:point>
+				<tns1:domainProperty dp_name="TestJourney">
+					<tns1:state>INITIAL</tns1:state>
+				</tns1:domainProperty>
+			</tns1:point>
+		</tns:precondition>
+	</tns:receive>
+
+	<tns:concrete name="TTM_ServiceCall">
+		<tns:effect>
+			<tns1:event dpName="TestJourney" eventName="processTestRequest"></tns1:event>
+		</tns:effect>
+	</tns:concrete>
+
+	<tns:invoke name="TTM_TestResponse">
+		<tns:effect>
+			<tns1:event dpName="TestJourney" eventName="sendTestResponse"></tns1:event>
+		</tns:effect>
+	</tns:invoke>
+</tns:process>

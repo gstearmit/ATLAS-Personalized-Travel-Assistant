@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ProcessEngineDemonstrator
+Bundle-SymbolicName: ProcessEngineDemonstrator
+Bundle-Version: 1.0.0.qualifier
+Export-Package: eu.domainobjects,
+ eu.domainobjects.controller,
+ eu.domainobjects.controller.events,
+ eu.domainobjects.presentation.main,
+ eu.domainobjects.presentation.main.action,
+ eu.domainobjects.presentation.main.action.listener,
+ eu.domainobjects.presentation.main.events,
+ eu.domainobjects.presentation.main.map,
+ eu.domainobjects.presentation.main.process,
+ eu.domainobjects.utils
+Import-Package: eu.domainobjects.utils
