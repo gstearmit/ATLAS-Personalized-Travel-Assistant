@@ -29,13 +29,13 @@ This study has been designed, developed, and reported by the following investiga
 
 * <b> Antonio Bucchiarone </b> - Fondazione Bruno Kessler (FBK, Trento - Italy)
 
-* <b> Martina De Sanctis </b> - Fondazione Bruno Kessler
+* <b> Martina De Sanctis </b> - Gran Sasso Science Institute - GSSI, L'Aquila, Italy
 
 * <b> Michael Dolzani </b> - University of Trento, Italy
 
 * <b> Annapaola Marconi </b> - Fondazione Bruno Kessler
 
-For any information, interested researchers can contact us by writing an email to msanctis@fbk.eu.
+For any information, interested researchers can contact us by writing an email to martina.desanctis@gssi.it.
 
 
 ## Dependencies and how to build ATLAS
@@ -50,12 +50,12 @@ The project dependencies are inside the lib folder. If required, add them to the
 ## How to configure
 
 ### General configuration
-Please open the botProperties.txt and, in your Telegram, seach for the ATLAS chat-bot, by using the name parameter reported in this file.
+Please open the <i>botProperties.txt</i> and, in your Telegram, seach for the ATLAS chat-bot, by using the name parameter reported in this file.
 
 ### Mac configuration
 
-In order to run the composer component inside the ATLAS demonstrator, wine (1.6.2) must be configured on te system, because the demostrator runs a small executable
-included inside it, namely wsynth. Please see the composer-impl.jar dependency and modifiy the configuration.properties file inside it with the following properties 
+In order to run the composer component inside the ATLAS demonstrator, wine (1.6.2) must be configured on the system, because the demostrator runs a small executable
+included inside it, namely wsynth. Please see the composer-impl.jar dependency and modifiy the <i>configuration.properties</i> file inside it with the following properties 
 (example values)
 
 macWinePath=/opt/local/bin/wine macwsynthPath=/opt/local/bin/wsynth.exe
