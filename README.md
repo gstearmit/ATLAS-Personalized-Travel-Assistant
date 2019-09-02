@@ -74,6 +74,10 @@ when the ATLAS demonstrator is started, select <b>File</b> -> <b>Open Scenario</
 
 To run the demonstrator, which is sinchronized with the Telegram chat-bot please press <i>STEP</i> or <i>PLAY</i> on the demonstrator, and <i>START</i> on the chat-bot.
 
+## License
+
+Please refer to the ATLAS/COPYRIGHT file.
+
 ## ATLAS demonstrator and Chat-bot execution Examples
 
 ### Demonstrator Interface
